@@ -1,5 +1,3 @@
-(function () {
-    'use strict';
     // Initialize Firebase
     var config = {
         apiKey: "AIzaSyBjF93oNeV9xMebcstkjtr-rV2WoRy6eh0",
@@ -22,16 +20,6 @@
         window.alert("username = " + username + "\npassword = " + password);
         return false;
     }
-    /*
-    var username = "";
-    var password = "";
-    var loginButton = document.getElementById('login');
-    loginButton.onclick = function(){
-        username = document.getElementById('username');
-        password = document.getElementById('password');
-        	
-        window.alert("username = " + username + "\npassword = " + password);
-    };
     
     firebase.auth().signInWithEmailAndPassword(username, password).catch(function(error) {
       // Handle Errors here.
@@ -39,5 +27,3 @@
       var errorMessage = error.message;
       // ...
     });
-    */
-} )();
