@@ -19,6 +19,13 @@
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
 
+		//
+		//	Load includes
+		//
+		$('div[data-include]').each(function() {
+			$(this).load( $(this).attr('data-include') + '.html').trigger('create');
+		});
+		
         //
         //  Redirect to the main page
         //
