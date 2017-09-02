@@ -22,7 +22,7 @@
         //
         //  Redirect to the main page
         //
-        window.location.href = 'hexagon.html';
+        window.location.href = 'login.html';
     }
 
     function onPause() {

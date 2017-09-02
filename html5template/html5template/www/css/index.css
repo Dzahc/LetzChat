@@ -32,7 +32,7 @@ body {
 }
 
 .app {
-    background: url(../images/cordova.png) no-repeat center top; 
+    /*background: url(../images/cordova.png) no-repeat center top;*/ 
     position: absolute;             
     left: 50%;
     top: 50%;
@@ -46,7 +46,7 @@ body {
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
     .app {
         background-position:left center;
-        padding:75px 0px 75px 170px;
+        padding:75px 0px 75px 0px;
         margin:-90px 0px 0px -198px;
     }
 }
