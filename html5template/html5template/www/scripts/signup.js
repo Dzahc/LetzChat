@@ -4,14 +4,15 @@
 // and then run "window.location.reload()" in the JavaScript Console.
 (function () {
     "use strict";
-	
-	function testsub() {
-		
-		return false;
-	};
-	
 	$('div[data-include]').each(function() {
 		$(this).load( $(this).attr('data-include') + '.html').trigger('create');
 	});
-	
+
+    function onPause() {
+        // TODO: This application has been suspended. Save application state here.
+    };
+
+    function onResume() {
+        // TODO: This application has been reactivated. Restore application state here.
+    };
 } )();

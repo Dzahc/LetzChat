@@ -391,6 +391,7 @@ body {
 .form_field{
 	width:90px;
 	display: inline-block;
+	text-align: right;
 	
 }
 
