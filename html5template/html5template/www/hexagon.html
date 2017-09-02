@@ -1,4 +1,5 @@
-<!DOCTYPE HTML>
+﻿<!DOCTYPE HTML>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0"/>
@@ -31,140 +32,161 @@
 <script type="text/javascript" src="scripts/framework.js"></script>
 <script type="text/javascript" src="scripts/framework.launcher.js"></script>
 
+<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-storage.js"></script>
+<script type="text/javascript" src="scripts/firebaseUtils.js"></script>
+
 <script type="text/javascript">
 function swapStyleSheet(sheet){
 	document.getElementById('pagestyle').setAttribute('href', sheet);
 }
 </script>
 
-</head>
-<body>
+    <script>
+        var username = "";
+        var password = "";
+        var loginForm = document.getElementById('loginForm');
+
+        function onLoginSubmit() {
+            username = document.getElementById('username').value;
+            password = document.getElementById('password').value;
+
+            window.alert("username = " + username + "\npassword = " + password);
+            return false;
+        }
+    </script>
+
+</head >
+        <body>
 
 
 
-<div id="preloader">
-	<div id="status">
-    	<p class="center-text">
-			Loading the content...
+            <div id="preloader">
+                <div id="status">
+                    <p class="center-text">
+                        Loading the content...
             <em>Loading depends on your connection speed!</em>
-        </p>
-    </div>
-</div>
+                    </p>
+                </div>
+            </div>
 
-<!--Demo purposes only, can be deleted!-->
+            <!--Demo purposes only, can be deleted!-->
     <div class="stylesheet-changer">
-        <div class="styles">
-            <a class="images-changer" href="#" onclick="swapStyleSheet('styles/menus-background.css')"></a>
-            <a class="variation-changer" href="#" onclick="swapStyleSheet('styles/menus-variation.css')"></a>
-            <a class="blue-changer" href="#" onclick="swapStyleSheet('styles/menus-blue.css')"></a>
-            <a class="green-changer" href="#" onclick="swapStyleSheet('styles/menus-green.css')"></a>
-            <a class="orange-changer" href="#" onclick="swapStyleSheet('styles/menus-orange.css')"></a>
-            <a class="magenta-changer" href="#" onclick="swapStyleSheet('styles/menus-magenta.css')"></a>
-            <a class="red-changer" href="#" onclick="swapStyleSheet('styles/menus-red.css')"></a>
-            <a class="white-changer" href="#" onclick="swapStyleSheet('styles/menus-white.css')"></a>
-            <div class="clear"></div>
-            <p>Tap the icons to change the menu style!</p>
-        </div>
-    </div>
-<!--Demo purposes only, can be deleted!-->
+                <div class="styles">
+                    <a class="images-changer" href="#" onclick="swapStyleSheet('styles/menus-background.css')"></a>
+                    <a class="variation-changer" href="#" onclick="swapStyleSheet('styles/menus-variation.css')"></a>
+                    <a class="blue-changer" href="#" onclick="swapStyleSheet('styles/menus-blue.css')"></a>
+                    <a class="green-changer" href="#" onclick="swapStyleSheet('styles/menus-green.css')"></a>
+                    <a class="orange-changer" href="#" onclick="swapStyleSheet('styles/menus-orange.css')"></a>
+                    <a class="magenta-changer" href="#" onclick="swapStyleSheet('styles/menus-magenta.css')"></a>
+                    <a class="red-changer" href="#" onclick="swapStyleSheet('styles/menus-red.css')"></a>
+                    <a class="white-changer" href="#" onclick="swapStyleSheet('styles/menus-white.css')"></a>
+                    <div class="clear"></div>
+                    <p>Tap the icons to change the menu style!</p>
+                </div>
+            </div>
+            <!--Demo purposes only, can be deleted!-->
 
 <div class="clear"></div>
 
-<div class="all-elements">
-    <div class="content-header">
-        <a href="#" class="deploy-sidebar"></a>
-        <img class="logo" src="images/misc/letzchat_logo_white.png" width="92" alt="img">
-        <a href="contact.html" class="deploy-contact"></a>
-        <div class="clear"></div>
+            <div class="all-elements">
+                <div class="content-header">
+                    <a href="#" class="deploy-sidebar"></a>
+                    <img class="logo" src="images/misc/letzchat_logo_white.png" width="92" alt="img">
+                        <a href="contact.html" class="deploy-contact"></a>
+                        <div class="clear"></div>
     </div>
 
-    <div id="sidebar" class="page-sidebar">
-        <div class="page-sidebar-scroll">
-            
-			<p class="sidebar-title">Channels</p>
-            <div class="sidebar-decoration"></div>
-			
-			<div class="sidebar-navigation">
-				<ul>
-						<li><a href="index.html">Channel 1</a></li>
-						<li><a href="index.html">Channel 2</a></li>
-						<li><a href="index.html">Channel 3</a></li>
-						<li><a href="index.html">Channel 4</a></li>
-				</ul>
-			</div>
-            
-			<div class="sidebar-decoration"></div>
-			<p class="sidebar-title">GET IN TOUCH</p>
-            <div class="sidebar-decoration"></div> 
+                    <div id="sidebar" class="page-sidebar">
+                        <div class="page-sidebar-scroll">
 
-            <div class="sidebar-navigation">
-            	<a href="contact.html" 							class="sidebar-icon sidebar-8"></a>
-                <a href="slider.html" 	 						 class="sidebar-icon sidebar-9"></a>
-                <div class="clear"></div>
-                <a href="http://www.facebook.com/enabled.labs" 	class="sidebar-icon sidebar-10"></a>
-                <a href="#" 									   class="close-sidebar sidebar-icon sidebar-11"></a>
-                <a href="https://twitter.com/iEnabled" 			class="sidebar-icon sidebar-12"></a>
-                <div class="clear"></div>
-                <a href="tel:+1 234 567 890" 					  class="sidebar-icon sidebar-13"></a>
-                <a href="sms:+1 234 567 890" 					  class="sidebar-icon sidebar-14"></a>
-            </div>
-            
-			<div class="sidebar-decoration"></div>
-			<p class="sidebar-title">PAGE UPDATES</p>
-            <div class="sidebar-decoration"></div> 
-            
-            <div class="page-notifications warning-notification">
-            	<h4>Notification Title</h4>
-                <p>Sidebar updated to have icons and text descriptions!</p>
-            </div>
-            
-            <div class="page-notifications information-notification">
-            	<h4>Notification Title</h4>
-                <p>Sidebar updated to have icons and text descriptions!</p>
-            </div>
-            
-            <div class="page-notifications alert-notification">
-            	<h4>Notification Title</h4>
-                <p>Sidebar updated to have icons and text descriptions!</p>
-            </div>
-            
-            <div class="page-notifications confirmation-notification">
-            	<h4>Notification Title</h4>
-                <p>Sidebar updated to have icons and text descriptions!</p>
-            </div>
-            
-            <div class="sidebar-decoration"></div>
-            <p class="sidebar-copyright uppercase center-text">Copyright 2013<br> All rights reserved</p>
-            
+                            <p class="sidebar-title">Channels</p>
+                            <div class="sidebar-decoration"></div>
+
+                            <div class="sidebar-navigation">
+                                <ul>
+                                    <li><a href="index.html">Channel 1</a></li>
+                                    <li><a href="index.html">Channel 2</a></li>
+                                    <li><a href="index.html">Channel 3</a></li>
+                                    <li><a href="index.html">Channel 4</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="sidebar-decoration"></div>
+                            <p class="sidebar-title">GET IN TOUCH</p>
+                            <div class="sidebar-decoration"></div>
+
+                            <div class="sidebar-navigation">
+                                <a href="contact.html" class="sidebar-icon sidebar-8"></a>
+                                <a href="slider.html" class="sidebar-icon sidebar-9"></a>
+                                <div class="clear"></div>
+                                <a href="http://www.facebook.com/enabled.labs" class="sidebar-icon sidebar-10"></a>
+                                <a href="#" class="close-sidebar sidebar-icon sidebar-11"></a>
+                                <a href="https://twitter.com/iEnabled" class="sidebar-icon sidebar-12"></a>
+                                <div class="clear"></div>
+                                <a href="tel:+1 234 567 890" class="sidebar-icon sidebar-13"></a>
+                                <a href="sms:+1 234 567 890" class="sidebar-icon sidebar-14"></a>
+                            </div>
+
+                            <div class="sidebar-decoration"></div>
+                            <p class="sidebar-title">PAGE UPDATES</p>
+                            <div class="sidebar-decoration"></div>
+
+                            <div class="page-notifications warning-notification">
+                                <h4>Notification Title</h4>
+                                <p>Sidebar updated to have icons and text descriptions!</p>
+                            </div>
+
+                            <div class="page-notifications information-notification">
+                                <h4>Notification Title</h4>
+                                <p>Sidebar updated to have icons and text descriptions!</p>
+                            </div>
+
+                            <div class="page-notifications alert-notification">
+                                <h4>Notification Title</h4>
+                                <p>Sidebar updated to have icons and text descriptions!</p>
+                            </div>
+
+                            <div class="page-notifications confirmation-notification">
+                                <h4>Notification Title</h4>
+                                <p>Sidebar updated to have icons and text descriptions!</p>
+                            </div>
+
+                            <div class="sidebar-decoration"></div>
+                            <p class="sidebar-copyright uppercase center-text">Copyright 2013<br> All rights reserved</p>
+
         </div>
-    </div>
+                        </div>
 
 
-    <div id="content" class="page-content">
-        
-        <div class="content">
-            
-			<div class="decoration"></div>    
-			
-			<div class="container">
-				<h4 class="uppercase center-text">Login</h4>
-				<p class="center-text">
-					You can use your email or one of the social media
+                        <div id="content" class="page-content">
+
+                            <div class="content">
+
+                                <div class="decoration"></div>
+
+                                <div class="container">
+                                    <h4 class="uppercase center-text">Login</h4>
+                                    <p class="center-text">
+                                        You can use your email or one of the social media
 				</p>
-						<form >
-						<p class="center-text"><span class="form_field">Email:</span><input type="text" id="username" name="username" style="border:1px solid #000;display: inline"></p> 
-						<p class="center-text"><span class="form_field">Password:</span><input type="password" id="password" name="password"  style="border:1px solid #000;display: inline"></p>
-						<p class="center-text"><span class="form_field"></span><input type="submit" value="Login"  style="width:127px; border:1px solid #000;display: inline; padding:3px 30px; background-color:#34495E; color:#FFF"></p> 
+                                    <form onsubmit="return onLoginSubmit()" id="loginForm" method="post">
+                                        <p class="center-text"><span class="form_field">Email:</span><input type="text" id="username" name="username" style="border:1px solid #000;display: inline"></p>
+                                            <p class="center-text"><span class="form_field">Password:</span><input type="password" id="password" name="password" style="border:1px solid #000;display: inline"></p>
+                                                <p class="center-text"><span class="form_field"></span><input type="submit" value="Login" style="width:127px; border:1px solid #000;display: inline; padding:3px 30px; background-color:#34495E; color:#FFF"></p>
 						</form>
-						<p class="center-text"><a href="signup.html" class="blue">Signup</a>
-				
-			   
-			</div>
-        
-        <div class="decoration"></div>
+                                                <p class="center-text"><a href="signup.html" class="blue">Signup</a>
 
-        <p class="copyright uppercase center-text">LetzChat &copy; Copyright 2017<br> All rights reserved</p>   
-        <div style="height:60px"></div> 
+
+			</div>
+
+                                                <div class="decoration"></div>
+
+                                                <p class="copyright uppercase center-text">LetzChat &copy; Copyright 2017<br> All rights reserved</p>
+                                                    <div style="height:60px"></div>
         </div>
     </div>
 </div>
