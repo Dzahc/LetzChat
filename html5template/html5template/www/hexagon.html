@@ -100,87 +100,24 @@ function swapStyleSheet(sheet){
                         <div class="clear"></div>
     </div>
 
-                    <div id="sidebar" class="page-sidebar">
-                        <div class="page-sidebar-scroll">
-
-                            <p class="sidebar-title">Channels</p>
-                            <div class="sidebar-decoration"></div>
-
-                            <div class="sidebar-navigation">
-                                <ul>
-                                    <li><a href="index.html">Channel 1</a></li>
-                                    <li><a href="index.html">Channel 2</a></li>
-                                    <li><a href="index.html">Channel 3</a></li>
-                                    <li><a href="index.html">Channel 4</a></li>
-                                </ul>
-                            </div>
-
-                            <div class="sidebar-decoration"></div>
-                            <p class="sidebar-title">GET IN TOUCH</p>
-                            <div class="sidebar-decoration"></div>
-
-                            <div class="sidebar-navigation">
-                                <a href="contact.html" class="sidebar-icon sidebar-8"></a>
-                                <a href="slider.html" class="sidebar-icon sidebar-9"></a>
-                                <div class="clear"></div>
-                                <a href="http://www.facebook.com/enabled.labs" class="sidebar-icon sidebar-10"></a>
-                                <a href="#" class="close-sidebar sidebar-icon sidebar-11"></a>
-                                <a href="https://twitter.com/iEnabled" class="sidebar-icon sidebar-12"></a>
-                                <div class="clear"></div>
-                                <a href="tel:+1 234 567 890" class="sidebar-icon sidebar-13"></a>
-                                <a href="sms:+1 234 567 890" class="sidebar-icon sidebar-14"></a>
-                            </div>
-
-                            <div class="sidebar-decoration"></div>
-                            <p class="sidebar-title">PAGE UPDATES</p>
-                            <div class="sidebar-decoration"></div>
-
-                            <div class="page-notifications warning-notification">
-                                <h4>Notification Title</h4>
-                                <p>Sidebar updated to have icons and text descriptions!</p>
-                            </div>
-
-                            <div class="page-notifications information-notification">
-                                <h4>Notification Title</h4>
-                                <p>Sidebar updated to have icons and text descriptions!</p>
-                            </div>
-
-                            <div class="page-notifications alert-notification">
-                                <h4>Notification Title</h4>
-                                <p>Sidebar updated to have icons and text descriptions!</p>
-                            </div>
-
-                            <div class="page-notifications confirmation-notification">
-                                <h4>Notification Title</h4>
-                                <p>Sidebar updated to have icons and text descriptions!</p>
-                            </div>
-
-                            <div class="sidebar-decoration"></div>
-                            <p class="sidebar-copyright uppercase center-text">Copyright 2013<br> All rights reserved</p>
-
-        </div>
-                        </div>
+    <div data-include="side-nav"></div>
 
 
-                        <div id="content" class="page-content">
-
-                            <div class="content">
-
-                                <div class="decoration"></div>
-
-                                <div class="container">
-                                    <h4 class="uppercase center-text">Login</h4>
-                                    <p class="center-text">
-                                        You can use your email or one of the social media
-				</p>
-                                    <form onsubmit="return onLoginSubmit()" id="loginForm" method="post">
-                                        <p class="center-text"><span class="form_field">Email:</span><input type="text" id="username" name="username" style="border:1px solid #000;display: inline"></p>
-                                            <p class="center-text"><span class="form_field">Password:</span><input type="password" id="password" name="password" style="border:1px solid #000;display: inline"></p>
-                                                <p class="center-text"><span class="form_field"></span><input type="submit" value="Login" style="width:127px; border:1px solid #000;display: inline; padding:3px 30px; background-color:#34495E; color:#FFF"></p>
-						</form>
-                                                <p class="center-text"><a href="signup.html" class="blue">Signup</a>
-
-
+    <div id="content" class="page-content">
+        
+        <div class="content">
+            
+			<div class="decoration"></div>    
+			
+			<div class="container">
+				<h4 class="uppercase center-text">Login</h4>
+				
+				<form onsubmit="return onLoginSubmit()" id="loginForm" method="post">
+				<p class="center-text"><span class="form_field">Email:</span><input type="text" id="username" name="username" style="border:1px solid #000;display: inline"></p> 
+				<p class="center-text"><span class="form_field">Password:</span><input type="password" id="password" name="password"  style="border:1px solid #000;display: inline"></p>
+				<p class="center-text"><span class="form_field"></span><input type="submit" value="Login"  style="width:127px; border:1px solid #000;display: inline; padding:3px 30px; background-color:#34495E; color:#FFF"></p> 
+				</form>
+				<p class="center-text"><a href="signup.html" class="blue">Signup</a>
 			</div>
 
                                                 <div class="decoration"></div>
@@ -191,6 +128,9 @@ function swapStyleSheet(sheet){
     </div>
 </div>
 
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="scripts/platformOverrides.js"></script>
+<script type="text/javascript" src="scripts/hexagon.js"></script>
 
 </body>
 </html>
