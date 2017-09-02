@@ -30,13 +30,13 @@
         //  Redirect to the main page
         //
         window.location.href = 'hexagon.html';
-    };
+    }
 
     function onPause() {
         // TODO: This application has been suspended. Save application state here.
-    };
+    }
 
     function onResume() {
         // TODO: This application has been reactivated. Restore application state here.
-    };
+    }
 } )();
