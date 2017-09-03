@@ -18,11 +18,36 @@
         var receivedElement = parentElement.querySelector('.received');
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
-		
+
+        function alertDismissed() {
+            // do something
+        }
+
+        navigator.globalization.getPreferredLanguage(
+
+            function (language) {
+                //
+                //  Save the language
+                //
+                localStorage.setItem("device_language", language.value); 
+            },
+            function () {
+                //
+                //  No language found then display the original message 
+                //  without translating
+                //
+                //alert('Error getting language\n');
+            }
+
+        );
+        
+        // Beep twice!
+        navigator.notification.beep(1);
+
         //
-        //  Redirect to the main page
+        //  Redirect to the main page 
         //
-        window.location.href = 'hexagon.html';
+        window.location.href = 'login.html';
     }
 
     function onPause() {
