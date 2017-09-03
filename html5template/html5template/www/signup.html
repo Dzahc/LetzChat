@@ -32,6 +32,13 @@
     <script type="text/javascript" src="scripts/framework.js"></script>
     <script type="text/javascript" src="scripts/framework.launcher.js"></script>
 
+    <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-storage.js"></script>
+    <script type="text/javascript" src="scripts/firebaseUtils.js"></script>
+
     <script type="text/javascript">
         function swapStyleSheet(sheet) {
             document.getElementById('pagestyle').setAttribute('href', sheet);
@@ -74,8 +81,8 @@
                 <div class="container">
                     <h4 class="uppercase center-text">Signup</h4>
 
-                    <form>
-						<p class="center-text"><span class="form_field">Full Name <span style="color:#F00; font-weight:bold;">*</span> : </span> <input type="text" id="username" name="username" style="border:1px solid #000;display: inline"></p>
+                    <form onsubmit="return onSignupSubmit()" method="post">
+                        <p class="center-text"><span class="form_field">Full Name <span style="color:#F00; font-weight:bold;">*</span> : </span> <input type="text" id="fullName" name="fullName" style="border:1px solid #000;display: inline"></p>
                         <p class="center-text"><span class="form_field">Email <span style="color:#F00; font-weight:bold;">*</span> : </span> <input type="text" id="username" name="username" style="border:1px solid #000;display: inline"></p>
                         <p class="center-text"><span class="form_field">Password <span style="color:#F00; font-weight:bold;">*</span> : </span> <input type="password" id="password" name="password" style="border:1px solid #000;display: inline"></p>
                         <p class="center-text"><span class="form_field"></span><input type="submit" value="Signup" style="width:127px; border:1px solid #000;display: inline; padding:3px 30px; background-color:#34495E; color:#FFF"></p>
