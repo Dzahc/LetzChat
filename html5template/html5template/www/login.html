@@ -57,6 +57,16 @@ function swapStyleSheet(sheet){
             window.alert("username = " + username + "\npassword = " + password);
             return false;
         }
+
+        function testNotification() {
+
+            window.alert('test notification from file');
+
+            PushNotification.init({
+              
+            });
+
+        }
     </script>
 
 </head >
@@ -115,6 +125,8 @@ function swapStyleSheet(sheet){
 				<p class="copyright center-text"> <a class="blue" href="docs/policy.html">Policy</a> | <a class="blue" href="docs/terms.html">Terms and Conditions</a></p>
                 
 				<div style="height:60px"></div>
+				
+				<!--a href="#" onclick="javascript:testNotification()">Test notification</a-->
         </div>
     </div>
 </div>

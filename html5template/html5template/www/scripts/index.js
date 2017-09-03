@@ -45,6 +45,12 @@
         navigator.notification.beep(1);
 
         //
+        //  Initiate the push notification
+        //  NOTE: https://console.firebase.google.com/project/letzchatenterprise/overview
+        //
+        //PushNotification.init();
+
+        //
         //  Redirect to the main page 
         //
         window.location.href = 'login.html';

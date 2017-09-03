@@ -1,7 +1,12 @@
 {
-    "name": "html5template",
-    "version": "1.0.0",
-    "private": true,
-    "dependencies": {
+  "name": "html5template",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+  },
+  "cordovaPlugins": [
+    {
+      "locator": "phonegap-plugin-push"
     }
+  ]
 }
