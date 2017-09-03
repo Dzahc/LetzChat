@@ -4,7 +4,10 @@
 // and then run "window.location.reload()" in the JavaScript Console.
 (function () {
     "use strict";
-	
+
+    //
+    //  Get language that was setup in index.js
+    //
     var device_language = localStorage.getItem("device_language"); 
 
     $("#device_language").html( device_language );
