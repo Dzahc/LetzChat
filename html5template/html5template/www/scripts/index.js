@@ -19,13 +19,31 @@
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
 
+        function alertDismissed() {
+            // do something
+        }
 
         navigator.globalization.getPreferredLanguage(
-            function (language) { alert('language: ' + language.value + '\n'); },
+            function (language) {
+                navigator.notification.alert(
+                    language.value + '\n',  // message
+                    alertDismissed,         // callback
+                    'Language',            // title
+                    'Done'                  // buttonName
+                );
+            },
             function () { alert('Error getting language\n'); }
         );
+
+       
+
+       
+
+        // Beep twice!
+        navigator.notification.beep(1);
+
         //
-        //  Redirect to the main page
+        //  Redirect to the main page 
         //
         window.location.href = 'login.html';
     }
