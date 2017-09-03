@@ -24,15 +24,21 @@
         }
 
         navigator.globalization.getPreferredLanguage(
+
             function (language) {
-                navigator.notification.alert(
-                    language.value + '\n',  // message
-                    alertDismissed,         // callback
-                    'Language',            // title
-                    'Done'                  // buttonName
-                );
+                //
+                //  Save the language
+                //
+                localStorage.setItem("device_language", language.value); 
             },
-            function () { alert('Error getting language\n'); }
+            function () {
+                //
+                //  No language found then display the original message 
+                //  without translating
+                //
+                //alert('Error getting language\n');
+            }
+
         );
         
         // Beep twice!
