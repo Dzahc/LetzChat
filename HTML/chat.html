@@ -21,7 +21,27 @@
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-messaging.js"></script>
+    <script type="text/javascript" src="../html5template/html5template/www/scripts/jquery.js"></script>
+    <script type="text/javascript" src="../html5template/html5template/www/scripts/jqueryui.js"></script>
     <link rel="stylesheet" href="../css/chat.css">
+    <script type="text/javascript">
+    var user_id = "";
+    var conversation_id = "";
+    var dateTime = new Date().toString();
+    var language = localStorage.getItem("device_language");
+    var text = "";
+    var messageForm = document.getElementById('messageForm');
+      function onTextSubmitted() {
+        console.log("function called");
+        text = document.getElementById('message').value;
+
+
+        console.log("the time is " + dateTime);
+        console.log("the language is " + language);
+        console.log("the message is " + text);
+        return false;
+        }
+    </script>
   </head>
   <body>
     <div class="menu">
@@ -47,6 +67,9 @@
       </div>
     </li>
     </ol>
-    <input class="textarea" type="text" placeholder="Type here!"/><div class="emojis"></div>
+    <form onsubmit="onTextSubmitted()" id="messageForm" method="post">
+      <input id="message" type="text" name="message" class="textarea" type="text" placeholder="Type here!"/><div class="emojis"></div>
+      <input type="hidden" onkeydown="if (event.keyCode == 13) { this.form.submit(); return false;  }" name="" value="">
+    </form>
   </body>
 </html>
