@@ -4,7 +4,7 @@ var config = {
     authDomain: "letzchatenterprise.firebaseapp.com",
     databaseURL: "https://letzchatenterprise.firebaseio.com",
     projectId: "letzchatenterprise",
-    storageBucket: "",
+    storageBucket: "letzchatenterprise.appspot.com",
     messagingSenderId: "138258019105"
 };
 firebase.initializeApp(config);
@@ -52,31 +52,35 @@ function onSignupSubmit() {
 
     console.log("Created user successfully");
 
-    var user = firebase.auth().currentUser;
-    if (user) {
-        user.sendEmailVerification();
-        console.log("Sent Email verification");
-        user.fullName = fullName;
-        writeUserData(user);
-    }
+    var user2 = "";
+    firebase.auth().onAuthStateChanged(function (user) {
+        user2 = user;
+        if (user) {
+            user.sendEmailVerification();
+            console.log("Sent Email verification");
+            user.fullName = fullName;
+            writeUserData(user);
+        }
+    });
 
     return false;
 }
 
 function writeUserData(user) {
     printUser(user);
-    var userRef = firebase.database().ref("userId/" + user.uid);
+    var userRef = firebase.database().ref('userId/' + user.uid);
     console.log("userRef = " + userRef.toString());
 
-    var newData = userRef.push();
-    newData.set({
-        "email": user.email,
-        "fullName": user.fullName,
-        "location": user.location,
-        "password": user.password,
-        "photo_id": user.photo_id,
-        "prefix": user.prefix,
-        "title": user.title
+    //var newData = userRef.push();
+    
+    userRef.set({
+        email: user.email,
+        fullName: user.fullName,
+        location: user.location,
+        password: user.password,
+        photo_id: user.photo_id,
+        prefix: user.prefix,
+        title: user.title
     });
 }
 
