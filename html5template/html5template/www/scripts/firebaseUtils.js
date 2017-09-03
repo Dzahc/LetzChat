@@ -9,14 +9,9 @@ var config = {
 };
 firebase.initializeApp(config);
 
-var fullName = "";
-var username = "";
-var password = "";
-var loginForm = document.getElementById('loginForm');
-
 function onLoginSubmit() {
-    username = document.getElementById('username').value;
-    password = document.getElementById('password').value;
+    var username = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
 
     console.log("username = " + username + "\npassword = " + password);
 
@@ -35,9 +30,9 @@ function onLoginSubmit() {
 
 function onSignupSubmit() {
 
-    fullName = document.getElementById('fullName').value;
-    username = document.getElementById('username').value;
-    password = document.getElementById('password').value;
+    var fullName = document.getElementById('fullName').value;
+    var username = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
 
     console.log("fullName = " + fullName + "\nusername = " + username + "\npassword = " + password);
 
@@ -51,14 +46,12 @@ function onSignupSubmit() {
     });
 
     console.log("Created user successfully");
-
-    var user2 = "";
+    
     firebase.auth().onAuthStateChanged(function (user) {
-        user2 = user;
-        if (user) {
+        if (user && user.email === username) {
+            user.fullName = fullName;
             user.sendEmailVerification();
             console.log("Sent Email verification");
-            user.fullName = fullName;
             writeUserData(user);
         }
     });
@@ -67,7 +60,29 @@ function onSignupSubmit() {
 }
 
 function writeUserData(user) {
+    if (!user.email) {
+        user.email = "";
+    }
+    if (!user.fullName) {
+        user.fullName = "";
+    }
+    if (!user.location) {
+        user.location = "";
+    }
+    if (!user.password) {
+        user.password = "";
+    }
+    if (!user.photo_id) {
+        user.photo_id = "";
+    }
+    if (!user.prefix) {
+        user.prefix = "";
+    }
+    if (!user.title) {
+        user.title = "";
+    }
     printUser(user);
+
     var userRef = firebase.database().ref('userId/' + user.uid);
     console.log("userRef = " + userRef.toString());
 
@@ -77,7 +92,7 @@ function writeUserData(user) {
         email: user.email,
         fullName: user.fullName,
         location: user.location,
-        password: user.password,
+        //password: user.password,
         photo_id: user.photo_id,
         prefix: user.prefix,
         title: user.title
