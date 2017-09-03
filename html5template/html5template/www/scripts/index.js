@@ -55,6 +55,13 @@
     }
 
     function onResume() {
+
         // TODO: This application has been reactivated. Restore application state here.
+        navigator.notification.alert(
+            'ACTIVATION\n',  // message
+            alertDismissed,         // callback
+            'Language',            // title
+            'Done'                  // buttonName
+        );
     }
 } )();
