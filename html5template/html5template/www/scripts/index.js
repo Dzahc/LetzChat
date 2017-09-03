@@ -34,11 +34,7 @@
             },
             function () { alert('Error getting language\n'); }
         );
-
-       
-
-       
-
+        
         // Beep twice!
         navigator.notification.beep(1);
 
