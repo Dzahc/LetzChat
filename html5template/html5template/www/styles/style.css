@@ -394,9 +394,40 @@ body {
 	text-align: right;
 	
 }
+.settings_field{
+	width:120px;
+	display: inline-block;
+	text-align: right;
+	line-height:30px;
+	
+}
+
+.settings_value{
+	width:120px;
+	display: inline-block;
+	text-align: left;
+	
+}
 
 .no-bullets, .no-bullets li{
 	list-style-type: none;	
+}
+
+.circle {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  font-size: 25px;
+  color: #fff;
+  line-height: 33px;
+  text-align: center;
+  background: #34495E
+}
+
+.profile{
+	
+	font-weight:200;
+	
 }
 
 

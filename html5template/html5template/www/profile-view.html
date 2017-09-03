@@ -73,21 +73,19 @@ function swapStyleSheet(sheet){
                 </div>
             </div>
 
-           
+ 
 
 <div class="clear"></div>
 
             <div class="all-elements">
                 <div class="content-header">
-                    <!-- Activate the side nav button if necessary -->
-                    <!--a href="#" class="deploy-sidebar"></a-->
-                    <img class="logo" style="margin-top: 10px;" src="images/misc/letzchat_logo_white.png" width="92" alt="img">
+                    <a href="#" class="deploy-sidebar"></a>
+                    <img class="logo" src="images/misc/letzchat_logo_white.png" width="92" alt="img">
                         <a href="profile-view.html" class="deploy-contact"></a>
                         <div class="clear"></div>
     </div>
 
-    <!-- Include the side nav if necessary -->
-    <!--div data-include="side-nav"></div-->
+    <div data-include="side-nav"></div>
 
 
     <div id="content" class="page-content">
@@ -97,22 +95,27 @@ function swapStyleSheet(sheet){
 			<div class="decoration"></div>    
 			
 			<div class="container">
-				<h4 class="uppercase center-text">Login</h4>
+				<h4 class="uppercase center-text"><span class="settings_field">Profile : </span> <span class="settings_value"><span class="circle">FK</span></span></h4>
 				
+				<h4 class="uppercase center-text"><span class="settings_field">Prefix : </span> <span class="profile settings_value">Mr</span></h4>
+				
+				<h4 class="uppercase center-text"><span class="settings_field">Name : </span> <span class="profile settings_value">Florian KLEIN</span></h4>
+				
+				<h4 class="uppercase center-text"><span class="settings_field">Job Title : </span> <span class="profile settings_value">Software Engineer</span></h4>
+				
+				<h4 class="uppercase center-text"><span class="settings_field">Location : </span> <span class="profile settings_value">Los Angeles</span></h4>
 
-				<form onsubmit="return onLoginSubmit()" id="loginForm" method="post">
-				<p class="center-text"><span class="form_field">Email : </span> <input type="text" id="username" name="username" style="border:1px solid #000;display: inline"></p> 
-				<p class="center-text"><span class="form_field">Password : </span> <input type="password" id="password" name="password"  style="border:1px solid #000;display: inline"></p>
-
-				<p class="center-text"><span class="form_field"></span><input type="submit" value="Login"  style="width:127px; border:1px solid #000;display: inline; padding:3px 30px; background-color:#34495E; color:#FFF"></p> 
-				</form>
-				<p class="center-text">Don't have an account yet? Please <a href="signup.html" class="blue">register</a>
+				<h4 class="uppercase center-text"><span class="settings_field">Photo : </span> <span class="profile settings_value">No Picture</span></h4>
+				
+				<h4 class="uppercase center-text"><input type="button" value="Edit" style="width:127px; border:1px solid #000;display: inline; padding:3px 30px; background-color:#34495E; color:#FFF" onclick="window.location.href = 'profile-edit.html';"/></h4>
+				
+				
 			</div>
 
 				<div class="decoration"></div>
 
 				<p class="copyright uppercase center-text">LetzChat &copy; Copyright 2017 - All rights reserved</p>
-				<p class="copyright center-text"> <a class="blue" href="docs/policy.html">Policy</a> | <a class="blue" href="docs/terms.html">Terms and Conditions</a></p>
+				<p class="copyright center-text"> <a class="blue" href="#">Policy</a> | <a class="blue" href="#">Terms and Conditions</a></p>
                 
 				<div style="height:60px"></div>
         </div>
