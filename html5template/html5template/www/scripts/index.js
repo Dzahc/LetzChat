@@ -18,7 +18,12 @@
         var receivedElement = parentElement.querySelector('.received');
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
-		
+
+
+        navigator.globalization.getPreferredLanguage(
+            function (language) { alert('language: ' + language.value + '\n'); },
+            function () { alert('Error getting language\n'); }
+        );
         //
         //  Redirect to the main page
         //
