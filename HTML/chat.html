@@ -24,14 +24,14 @@
     <script type="text/javascript" src="../html5template/html5template/www/scripts/jquery.js"></script>
     <script type="text/javascript" src="../html5template/html5template/www/scripts/jqueryui.js"></script>
     <link rel="stylesheet" href="../css/chat.css">
-    <script type="text/javascript">
+    <script type="text/javascript" >
     var user_id = "";
     var conversation_id = "";
     var dateTime = new Date().toString();
     var language = localStorage.getItem("device_language");
     var text = "";
     var messageForm = document.getElementById('messageForm');
-      function onTextSubmitted() {
+      function onMessageSubmitted() {
         console.log("function called");
         text = document.getElementById('message').value;
 
@@ -39,7 +39,14 @@
         console.log("the time is " + dateTime);
         console.log("the language is " + language);
         console.log("the message is " + text);
-        return false;
+        var messageRef = firebase.database().ref('messages/');
+        messageRef.push({
+          conversation_id: conversation_id,
+          dateTime: dateTime,
+          language: language,
+          text: text,
+          user_id: user_id
+        });
         }
     </script>
   </head>
@@ -67,9 +74,9 @@
       </div>
     </li>
     </ol>
-    <form onsubmit="onTextSubmitted()" id="messageForm" method="post">
+    <form onsubmit="return onMessageSubmitted(); return false;" id="messageForm" method="post">
       <input id="message" type="text" name="message" class="textarea" type="text" placeholder="Type here!"/><div class="emojis"></div>
-      <input type="hidden" onkeydown="if (event.keyCode == 13) { this.form.submit(); return false;  }" name="" value="">
+      <input type="hidden" onkeydown="if (event.keyCode == 13) { this.form.submit();}" name="" value="">
     </form>
   </body>
 </html>
