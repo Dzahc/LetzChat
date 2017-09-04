@@ -45,6 +45,27 @@
         navigator.notification.beep(1);
 
         //
+        //  Initiate the push notification
+        //  NOTE: https://console.firebase.google.com/project/letzchatenterprise/overview
+        //
+        //PushNotification.init();
+		
+		//var notificationOpenedCallback = function(jsonData) {
+		//	//console.log('notreceivedificationOpenedCallback: ' + JSON.stringify(jsonData));
+		//	window.alert("Notif received");
+		//};
+
+		//window.plugins.OneSignal
+		//	.startInit("6f42939a-740a-4454-ad67-691e62a08bbc")
+		//	.handleNotificationOpened(notificationOpenedCallback)
+		//	.endInit();
+
+			
+		//window.plugins.OneSignal.setSubscription(true);
+		
+		//window.plugins.OneSignal.enableNotificationWhenActive(true);
+		
+        //
         //  Redirect to the main page 
         //
         window.location.href = 'login.html';
@@ -55,6 +76,13 @@
     }
 
     function onResume() {
+
         // TODO: This application has been reactivated. Restore application state here.
+        navigator.notification.alert(
+            'ACTIVATION\n',  // message
+            alertDismissed,         // callback
+            'Language',            // title
+            'Done'                  // buttonName
+        );
     }
 } )();

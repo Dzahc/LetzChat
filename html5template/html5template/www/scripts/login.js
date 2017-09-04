@@ -8,10 +8,22 @@
 	function testsub() {
 		
 		return false;
-	};
+	}
 	
 	$('div[data-include]').each(function() {
 		$(this).load( $(this).attr('data-include') + '.html').trigger('create');
-	});
+    });   
 	
-} )();
+})();
+
+function displayError(message) {
+
+    $("#errors").html(message);
+
+    $("#errors").css("visibility","visible");
+
+    $("#errors").fadeIn(1000);
+
+    $("#errors").fadeOut(4000);
+
+}
