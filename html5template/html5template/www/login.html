@@ -11,7 +11,7 @@
 <link rel="apple-touch-startup-image" href="images/splash/splash-screen@2x.png" 		media="(max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2)" /> 
 <link rel="apple-touch-startup-image" sizes="640x1096" href="images/splash/splash-screen@3x.png" />
 
-<title>LetzChat - Version 1.0a</title>
+<title>LetzChat Pro - Version 1.0a</title>
 
 <link href="styles/style.css"     		rel="stylesheet" type="text/css">
 <link href="styles/menus-background.css" rel="stylesheet" type="text/css" id="pagestyle">
@@ -45,6 +45,33 @@ function swapStyleSheet(sheet){
 }
 </script>
 
+<<<<<<< HEAD
+=======
+    <script>
+        var username = "";
+        var password = "";
+        var loginForm = document.getElementById('loginForm');
+
+        function onLoginSubmit() {
+            username = document.getElementById('username').value;
+            password = document.getElementById('password').value;
+
+            window.alert("username = " + username + "\npassword = " + password);
+            return false;
+        }
+
+        function testNotification() {
+
+            window.alert('test notification from file');
+
+            PushNotification.init({
+              
+            });
+
+        }
+    </script>
+
+>>>>>>> pushnotification
 </head >
         <body>
 
@@ -101,6 +128,8 @@ function swapStyleSheet(sheet){
 				<p class="copyright center-text"> <a class="blue" href="docs/policy.html">Policy</a> | <a class="blue" href="docs/terms.html">Terms and Conditions</a></p>
                 
 				<div style="height:60px"></div>
+				
+				<!--a href="#" onclick="javascript:testNotification()">Test notification</a-->
         </div>
     </div>
 </div>

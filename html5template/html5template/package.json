@@ -1,7 +1,16 @@
 {
-    "name": "html5template",
+    "name": "LetzChat Pro",
     "version": "1.0.0",
     "private": true,
-    "dependencies": {
+    "dependencies": {},
+    "cordovaPlugins": [
+        {
+            "locator": "phonegap-plugin-push"
+        }
+    ],
+    "cordova": {
+        "plugins": {
+            "onesignal-cordova-plugin": {}
+        }
     }
 }
