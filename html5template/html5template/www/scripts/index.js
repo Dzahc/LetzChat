@@ -22,7 +22,7 @@
         function alertDismissed() {
             // do something
         }
-        /*
+
         navigator.globalization.getPreferredLanguage(
 
             function (language) {
@@ -43,7 +43,6 @@
 
         // Beep twice!
         navigator.notification.beep(1);
-        */
 
         //
         //  Redirect to the main page 
