@@ -40,7 +40,7 @@
             }
 
         );
-        
+
         // Beep twice!
         navigator.notification.beep(1);
 
