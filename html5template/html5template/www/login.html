@@ -45,33 +45,7 @@ function swapStyleSheet(sheet){
 }
 </script>
 
-<<<<<<< HEAD
-=======
-    <script>
-        var username = "";
-        var password = "";
-        var loginForm = document.getElementById('loginForm');
 
-        function onLoginSubmit() {
-            username = document.getElementById('username').value;
-            password = document.getElementById('password').value;
-
-            window.alert("username = " + username + "\npassword = " + password);
-            return false;
-        }
-
-        function testNotification() {
-
-            window.alert('test notification from file');
-
-            PushNotification.init({
-              
-            });
-
-        }
-    </script>
-
->>>>>>> pushnotification
 </head >
         <body>
 
@@ -110,9 +84,12 @@ function swapStyleSheet(sheet){
 			<div class="decoration"></div>    
 			
 			<div class="container">
+
 				<h4 class="uppercase center-text">Login</h4>
 				
-
+                <div class="uppercase center-text">
+                    <div id="errors" class="uppercase center-text" style="visibility:hidden" ></div>
+                </div>
 				<form onsubmit="return onLoginSubmit()" method="post">
 				<p class="center-text"><span class="form_field">Email : </span> <input type="text" id="username" name="username" style="border:1px solid #000;display: inline"></p> 
 				<p class="center-text"><span class="form_field">Password : </span> <input type="password" id="password" name="password"  style="border:1px solid #000;display: inline"></p>
@@ -129,14 +106,14 @@ function swapStyleSheet(sheet){
                 
 				<div style="height:60px"></div>
 				
-				<!--a href="#" onclick="javascript:testNotification()">Test notification</a-->
+				
         </div>
     </div>
 </div>
 
 <script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript" src="scripts/platformOverrides.js"></script>
-<script type="text/javascript" src="scripts/hexagon.js"></script>
+<script type="text/javascript" src="scripts/login.js"></script>
 
 </body>
 </html>

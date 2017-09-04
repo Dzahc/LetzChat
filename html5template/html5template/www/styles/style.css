@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* CSS Document */
 
 body {
@@ -428,6 +428,14 @@ body {
 	
 	font-weight:200;
 	
+}
+
+#errors{
+    background: #fee none repeat scroll 0 0;
+    border: 1px solid #f00;
+    color: #f00;
+    width: 300px;
+    margin:auto;
 }
 
 
