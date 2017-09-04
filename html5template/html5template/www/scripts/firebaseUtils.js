@@ -118,6 +118,8 @@ function onProfileSubmit() {
 
         //TODO: Update an HTML field
         console.log("Updated user profile");
+
+        window.location.href = "profile-view.html"; 
     }
     else {
         console.log("User not logged in.");
