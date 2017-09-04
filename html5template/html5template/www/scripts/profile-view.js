@@ -30,12 +30,12 @@
             $(this).load($(this).attr('data-include') + '.html').trigger('create');
         });
 
-        navigator.notification.alert(
+        /*navigator.notification.alert(
             'LOADED\n',      // message
             alertDismissed,  // callback
             'Language',      // title
             'Done'           // buttonName
-        );
+        );*/
         console.log("after");
 
         
