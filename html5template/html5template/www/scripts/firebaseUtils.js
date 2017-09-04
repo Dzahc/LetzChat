@@ -37,11 +37,12 @@ function onLoginSubmit() {
         // Check if the user variable is not null and that it is the current user
         if (user && user.email === username) {
             // Store the uid
+            localStorage.setItem("user", JSON.stringify(user));
             localStorage.setItem("userId", user.uid);
         }
     });
 
-    console.log("localStorage userId = " + localStorage.getItem("userId"));
+    console.log("localStorage user = " + localStorage.getItem("user"));
 
     // Redirect to the hexagon.html page
     window.location.href = "hexagon.html";
@@ -96,22 +97,31 @@ function onSignupSubmit() {
 function onProfileSubmit() {
     var prefix = document.getElementById('title').value;
     var name = document.getElementById('name').value;
-    var job-title = document.getElementById('job-title').value;
+    var jobTitle = document.getElementById('job-title').value;
     var location = document.getElementById('location').value;
     var picture = document.getElementById('picture').value;
 
-    console.log("fullName = " + fullName + "\nusername = " + username + "\npassword = " + password);
+    //TODO: verify the data inputs
 
-    var userId = localStorage.getItem("userId");
+    console.log("prefix = " + prefix + "\nname = " + name + "\njobTitle = " + jobTitle + "\nlocation = " + location + "\npicture = " + picture);
 
-    firebase.auth().onAuthStateChanged(function (user) {
-        if (user && user.email === username) {
-            user.fullName = fullName;
-            user.sendEmailVerification();
-            console.log("Sent Email verification");
-            writeUserData(user);
-        }
-    });
+    var user = JSON.parse(localStorage.getItem("user"));
+
+    if (user) {
+        user.fullName = name;
+        user.location = location;
+        user.photo_id = picture;
+        user.prefix = prefix;
+        user.title = jobTitle;
+        
+        writeUserData(user);
+
+        //TODO: Update an HTML field
+        console.log("Updated user profile");
+    }
+    else {
+        console.log("User not logged in.");
+    }
 
     return false;
 }
