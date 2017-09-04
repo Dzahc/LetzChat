@@ -63,6 +63,24 @@ function swapStyleSheet(sheet){
         console.log("the language is " + language);
         console.log("the message is " + text);
         var messageRef = firebase.database().ref('messages/');
+        if (language===null){
+            language="";
+        }
+        if (!conversation_id){
+            conversation_id="";
+        }
+        if (!dateTime){
+            dateTime="";
+        }
+        if (!text){
+            text="";
+        }
+        if (!user_id){
+            user_id="";
+        }
+
+
+
         messageRef.push({
           conversation_id: conversation_id,
           dateTime: dateTime,
@@ -70,6 +88,7 @@ function swapStyleSheet(sheet){
           text: text,
           user_id: user_id
         });
+        return false;
         }
     </script>
 
@@ -135,9 +154,9 @@ function swapStyleSheet(sheet){
                   </div>
                 </li>
                 </ol>
-                <form onsubmit="return onMessageSubmitted(); return false;" id="messageForm" method="post">
+                <form onsubmit="return onMessageSubmitted()" id="messageForm" method="post">
                   <input id="message" type="text" name="message" class="textarea" type="text" placeholder="Type here!"/><div class="emojis"></div>
-                  <input type="hidden" onkeydown="if (event.keyCode == 13) { this.form.submit();}" name="" value="">
+                  <input type="hidden" onkeydown="if (event.keyCode == 13) { this.form.submit()}" name="" value="">
                 </form>
 			</div>
 

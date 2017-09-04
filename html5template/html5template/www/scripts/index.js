@@ -1,6 +1,6 @@
 ﻿// For an introduction to the Blank template, see the following documentation:
 // http://go.microsoft.com/fwlink/?LinkID=397704
-// To debug code on page load in cordova-simulate or on Android devices/emulators: launch your app, set breakpoints, 
+// To debug code on page load in cordova-simulate or on Android devices/emulators: launch your app, set breakpoints,
 // and then run "window.location.reload()" in the JavaScript Console.
 (function () {
     "use strict";
@@ -11,7 +11,7 @@
         // Handle the Cordova pause and resume events
         document.addEventListener( 'pause', onPause.bind( this ), false );
         document.addEventListener( 'resume', onResume.bind( this ), false );
-        
+
         // TODO: Cordova has been loaded. Perform any initialization that requires Cordova here.
         var parentElement = document.getElementById('deviceready');
         var listeningElement = parentElement.querySelector('.listening');
@@ -23,33 +23,33 @@
             // do something
         }
 
-        navigator.globalization.getPreferredLanguage(
-
-            function (language) {
-                //
-                //  Save the language
-                //
-                localStorage.setItem("device_language", language.value); 
-            },
-            function () {
-                //
-                //  No language found then display the original message 
-                //  without translating
-                //
-                //alert('Error getting language\n');
-            }
-
-        );
-
-        // Beep twice!
-        navigator.notification.beep(1);
+        // navigator.globalization.getPreferredLanguage(
+        //
+        //     function (language) {
+        //         //
+        //         //  Save the language
+        //         //
+        //         localStorage.setItem("device_language", language.value);
+        //     },
+        //     function () {
+        //         //
+        //         //  No language found then display the original message
+        //         //  without translating
+        //         //
+        //         //alert('Error getting language\n');
+        //     }
+        //
+        // );
+        //
+        // // Beep twice!
+        // navigator.notification.beep(1);
 
         //
         //  Initiate the push notification
         //  NOTE: https://console.firebase.google.com/project/letzchatenterprise/overview
         //
         //PushNotification.init();
-		
+
 		//var notificationOpenedCallback = function(jsonData) {
 		//	//console.log('notreceivedificationOpenedCallback: ' + JSON.stringify(jsonData));
 		//	window.alert("Notif received");
@@ -60,13 +60,13 @@
 		//	.handleNotificationOpened(notificationOpenedCallback)
 		//	.endInit();
 
-			
+
 		//window.plugins.OneSignal.setSubscription(true);
-		
+
 		//window.plugins.OneSignal.enableNotificationWhenActive(true);
-		
+
         //
-        //  Redirect to the main page 
+        //  Redirect to the main page
         //
         window.location.href = 'login.html';
     }
