@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -21,7 +21,8 @@
 
          if(data.key=="displayName"){
            console.log(data.key + " is " + data.val())
-           $("#test").append('<button>'+data.val()+'</button><br />')
+           $("#list").append('<input type="radio" name="user" id="track" value=data.val() /><label for=data.val()>Track Submission</label><br />')
+
          }
        })
       console.log(snapshot.key);
@@ -31,7 +32,10 @@
   </head>
 
   <body>
-    <div id="test">
+    <div id="userlist">
+      <ul id="list">
+
+      </ul>
 
     </div>
   </body>
