@@ -16,6 +16,8 @@ firebase.initializeApp(config);
  * to localStorage and the user is redirected to hexagon.html.
  */
 function onLoginSubmit() {
+    firebase.auth().signOut();
+
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
 
@@ -32,10 +34,11 @@ function onLoginSubmit() {
         var errorMessage = error.message;
         if (errorCode) {
             console.log(errorCode + ": " + errorMessage);
+            error2 = errorCode;
         }
     });
 
-    // Once the user is authenticated, grab the user variable
+        // Once the user is authenticated, grab the user variable
     firebase.auth().onAuthStateChanged(function (user) {
         // Check if the user variable is not null and that it is the current user
         if (user && user.email === username) {
@@ -62,11 +65,17 @@ function onLoginSubmit() {
  * via the writeUserData() method.
  */
 function onSignupSubmit() {
+    firebase.auth().signOut();
+
     var displayName = document.getElementById('fullName').value;
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
 
     console.log("displayName = " + displayName + "\nusername = " + username + "\npassword = " + password);
+    if (displayName === "" || username === "" || password === "") {
+        //TODO: Print a message to Login Error Div
+        return false;
+    }
 
     // The firebase method to register a new user
     firebase.auth().createUserWithEmailAndPassword(username, password).catch(function (error) {
@@ -86,8 +95,9 @@ function onSignupSubmit() {
             user.updateProfile({
                 displayName: displayName,
             }).then(function() {
-                console.log("Signup: user.displayName = " + user.displayName);
+                console.log("Updated user profile");
 
+                console.log("Adding user to the database");
                 writeUserData(user);
                 // Send the email verification
                 user.sendEmailVerification();
