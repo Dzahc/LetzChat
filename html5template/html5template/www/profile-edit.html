@@ -82,7 +82,7 @@ function swapStyleSheet(sheet){
 			
 			<div class="container">
 				
-				<form onsubmit="return onProfileSubmit()" method="post">
+				<form onsubmit="return onProfileSubmit()" enctype="multipart/form-data" name="profileupdate">
 				
 				<h4 class="uppercase center-text"><span class="settings_field">Profile : </span> <span class="settings_value"><span class="circle">FK</span></span></h4>
 				
@@ -103,9 +103,9 @@ function swapStyleSheet(sheet){
 				
 				<h4 class="uppercase center-text"><span class="settings_field">Location : </span> <span class="profile settings_value"><input type="text" name="location" id="location" value="Los Angeles" style="border:1px solid #000; padding-left:4px;"/></span></h4>
 
-				<h4 class="uppercase center-text"><span class="settings_field">Photo : </span> <span class="profile settings_value"><input type="file" name="picture" id="picture"/></span></h4>
+				<h4 class="uppercase center-text"><span class="settings_field">Photo : </span> <span class="profile settings_value"><input type="file" accept="image/*"  name="picture" id="picture"/></span></h4>
 				
-				<h4 class="uppercase center-text"><input type="submit" value="Save" style="width:127px; border:1px solid #000;display: inline; padding:3px 30px; background-color:#34495E; color:#FFF"/></h4>
+				<h4 class="uppercase center-text"><input type="button" onclick="onProfileSubmit()" value="Save" style="width:127px; border:1px solid #000;display: inline; padding:3px 30px; background-color:#34495E; color:#FFF"/></h4>
 				
 				</form>
 				
@@ -123,8 +123,108 @@ function swapStyleSheet(sheet){
 
 <script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript" src="scripts/platformOverrides.js"></script>
-<script type="text/javascript" src="scripts/hexagon.js"></script>
+<script type="text/javascript" src="scripts/profile-edit.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-storage.js"></script>
+<script type="text/javascript" src="scripts/firebaseUtils.js"></script>
 
+<script type="text/javascript">
+
+    var $ = jQuery.noConflict(); 
+
+    function alertCancelled() {
+        // do something
+    }
+
+    function onProfileSubmit() {
+
+        //
+        //  Get the file path
+        //
+        var picturePath = $("#picture").val();
+
+        var picturePathSantized = picturePath.replace(/\\/g, "/");
+
+        console.log(picturePathSantized);
+
+        var PictureName = picturePathSantized.split('/').pop();
+
+
+        //
+        //  Display an alert with the name of the picture
+        //
+        navigator.notification.alert(
+            'Your picture is being uploaded \nPath: ' + picturePathSantized + '\nPicture File: ' + PictureName  + '\n',      // message
+            alertCancelled,  // callback
+            'Picture',      // title
+            'Thanks Buddy'           // buttonName
+        );
+
+        
+        // Create a root reference
+        var storageRef = firebase.storage().ref();
+
+        var file = document.forms['profileupdate']['picture'].files[0];
+
+        console.log(file);
+
+        
+        // Create the file metadata
+        var metadata = {
+            contentType: 'image/jpeg'
+        };
+
+        // Upload file and metadata to the object 'images/mountains.jpg'
+        var uploadTask = storageRef.child('images/' + file.name).put(file, metadata);
+
+        // Listen for state changes, errors, and completion of the upload.
+        uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+
+            function (snapshot) {
+                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                var progress = (snapshot.bytesTransferred / snapshot.totalBytes  + 1) * 100;
+
+                console.log('Upload is ' + progress + '% done');
+
+                switch (snapshot.state) {
+                    case firebase.storage.TaskState.PAUSED: // or 'paused'
+                        console.log('Upload is paused');
+                        break;
+                    case firebase.storage.TaskState.RUNNING: // or 'running'
+                        console.log('Upload is running');
+                        break;
+                }
+
+            },  function (error) {
+
+                // A full list of error codes is available at
+                // https://firebase.google.com/docs/storage/web/handle-errors
+
+                switch (error.code) {
+                    case 'storage/unauthorized':
+                        // User doesn't have permission to access the object
+                        break;
+
+                    case 'storage/canceled':
+                        // User canceled the upload
+                        break;
+
+                    case 'storage/unknown':
+                      // Unknown error occurred, inspect error.serverResponse
+                      break;
+                    }
+                },  function() {
+                        // Upload completed successfully, now we can get the download URL
+                        var downloadURL = uploadTask.snapshot.downloadURL;
+                    });
+        
+        return false;
+
+    }
+</script>
 </body>
 </html>
 
