@@ -134,13 +134,13 @@ function onProfileSubmit() {
         user.photo_id = picture;
         user.prefix = prefix;
         user.title = jobTitle;
-        
+
         writeUserData(user);
 
         //TODO: Update an HTML field
         console.log("Updated user profile");
 
-        window.location.href = "profile-view.html"; 
+        window.location.href = "profile-view.html";
     }
     else {
         console.log("User not logged in.");
@@ -202,4 +202,35 @@ function printUser(user) {
         "\nphoto_id: " + user.photo_id +
         "\nprefix: " + user.prefix +
         "\ntitle: " + user.title);
+}
+
+function startConversation(){
+    var convoRef = firebase.database().ref('conversations/');
+    var time = (new Date()).getTime();
+    var owner = localStorage.getItem("userId");
+    if (owner){
+    var key = convoRef.push({
+      dateTime: time,
+      owner_id: owner
+  })};
+  convoId=key.key
+    $( document ).ready(function() {
+                $( "#userform" ).submit(function( event ) {
+                  var users=[]
+                    $('input[name="user"]:checked').each(function() {
+                      users.push(this.value)
+                        console.log("the users are ", users);
+                    });
+                        var partRef = firebase.database().ref('participants/');
+                        var user_id = users
+                        user_id.push(localStorage.getItem("userId"));
+                        var conversation_id = convoId
+                        partRef.push({
+                            user_id: user_id,
+                            conversation_id: conversation_id
+                        });
+                });
+            });
+
+  return false;
 }
