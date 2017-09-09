@@ -2,7 +2,11 @@
     "name": "LetzChat Pro",
     "version": "1.0.0",
     "private": true,
-    "dependencies": {},
+    "dependencies": {
+        "cordova-plugin-dialogs": "^1.3.3",
+        "cordova-plugin-globalization": "~1.0.7",
+        "cordova-plugin-whitelist": "1.2.2"
+    },
     "cordovaPlugins": [
         {
             "locator": "phonegap-plugin-push"
@@ -10,7 +14,9 @@
     ],
     "cordova": {
         "plugins": {
-            "onesignal-cordova-plugin": {}
+            "cordova-plugin-globalization": {},
+            "cordova-plugin-whitelist": {},
+            "cordova-plugin-dialogs": {}
         }
     }
 }
