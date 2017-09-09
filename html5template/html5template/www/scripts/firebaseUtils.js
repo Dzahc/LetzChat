@@ -169,6 +169,47 @@ function writeUserData(user) {
     });
 }
 
+    function onMessageSubmitted() {
+        console.log("function called");
+        var user = JSON.parse(localStorage.getItem("user"));
+        var user_id = user.uid;
+
+        var text = document.getElementById('message').value;
+        var conversation_id = "";
+        var dateTime = new Date().toString();
+        var language = localStorage.getItem("device_language");
+
+        console.log("the time is " + dateTime);
+        console.log("the language is " + language);
+        console.log("the message is " + text);
+
+        if (language === null) {
+            language = "";
+        }
+        if (!conversation_id) {
+            conversation_id = "";
+        }
+        if (!dateTime) {
+            dateTime = "";
+        }
+        if (!text) {
+            text = "";
+        }
+        if (!user_id) {
+            user_id = "";
+        }
+
+        var messageRef = firebase.database().ref('messages/');
+        messageRef.push({
+            conversation_id: conversation_id,
+            dateTime: dateTime,
+            language: language,
+            text: text,
+            user_id: user_id
+        });
+        return false;
+    }
+
 /**
  * Debug method to verify data variables
  * @param {any} user The current user
