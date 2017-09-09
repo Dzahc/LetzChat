@@ -268,3 +268,7 @@ html5template/html5template/simulation/sim-host\.js
 html5template/html5template/simulation/sim-host\.json
 
 html5template/\.vs/html5template/v15/\.suo
+
+html5template/html5template/bin/Android/Debug/android-debug-unaligned\.apk
+
+html5template/html5template/bin/Android/Debug/android-debug\.apk
