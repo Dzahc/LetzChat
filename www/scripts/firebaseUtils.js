@@ -16,10 +16,18 @@ firebase.initializeApp(config);
  * to localStorage and the user is redirected to hexagon.html.
  */
 function onLoginSubmit() {
+    firebase.auth().signOut();
+    localStorage.setItem("user", null);
+    localStorage.setItem("userId", null);
+
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
 
     console.log("username = " + username + "\npassword = " + password);
+    if (username === "" || password === "") {
+        displayError("Please enter an email and password");
+        return false;
+    }
 
     // Firebase user sign in method
     firebase.auth().signInWithEmailAndPassword(username, password).catch(function (error) {
@@ -28,24 +36,27 @@ function onLoginSubmit() {
         var errorMessage = error.message;
         if (errorCode) {
             console.log(errorCode + ": " + errorMessage);
+            displayError(errorMessage);
         }
     });
-    console.log("Logged in successfully");
 
-    // Once the user is authenticated, grab the user variable
+        // Once the user is authenticated, grab the user variable
     firebase.auth().onAuthStateChanged(function (user) {
         // Check if the user variable is not null and that it is the current user
         if (user && user.email === username) {
+
+            console.log("Logged in successfully");
+
             // Store the uid
             localStorage.setItem("user", JSON.stringify(user));
             localStorage.setItem("userId", user.uid);
+
+            // Redirect to the hexagon.html page
+            window.location.href = "hexagon.html";
         }
     });
 
-    console.log("localStorage user = " + localStorage.getItem("user"));
-
-    // Redirect to the hexagon.html page
-    window.location.href = "hexagon.html";
+    //console.log("localStorage user = " + localStorage.getItem("user"));
 
     return false;
 }
@@ -57,11 +68,17 @@ function onLoginSubmit() {
  * via the writeUserData() method.
  */
 function onSignupSubmit() {
-    var fullName = document.getElementById('fullName').value;
+    firebase.auth().signOut();
+
+    var displayName = document.getElementById('fullName').value;
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
 
-    console.log("fullName = " + fullName + "\nusername = " + username + "\npassword = " + password);
+    console.log("displayName = " + displayName + "\nusername = " + username + "\npassword = " + password);
+    if (displayName === "" || username === "" || password === "") {
+        displayError("Please enter a name, email, and password");
+        return false;
+    }
 
     // The firebase method to register a new user
     firebase.auth().createUserWithEmailAndPassword(username, password).catch(function (error) {
@@ -70,20 +87,28 @@ function onSignupSubmit() {
         var errorMessage = error.message;
         if (errorCode !== null) {
             // TODO: put the errorCode/Message in a div on the page
-            window.alert(errorCode + ": " + errorMessage);
+            console.log(errorCode + ": " + errorMessage);
+            displayError(errorMessage);
         }
     });
-
-    console.log("Created user successfully");
 
     // Wait for the user to be authenticated
     firebase.auth().onAuthStateChanged(function (user) {
         if (user && user.email === username) {
-            user.fullName = fullName;
-            // Send the email verification
-            user.sendEmailVerification();
-            console.log("Sent Email verification");
-            writeUserData(user);
+            console.log("Created user successfully");
+            user.updateProfile({
+                displayName: displayName,
+            }).then(function() {
+                console.log("Updated user profile");
+
+                console.log("Adding user to the database");
+                writeUserData(user);
+                // Send the email verification
+                user.sendEmailVerification();
+                console.log("Sent Email verification");
+
+                window.location.href = "login.html";
+            });
         }
     });
 
@@ -108,16 +133,20 @@ function onProfileSubmit() {
     var user = JSON.parse(localStorage.getItem("user"));
 
     if (user) {
-        user.fullName = name;
+        user.displayName = name;
         user.location = location;
         user.photo_id = picture;
         user.prefix = prefix;
         user.title = jobTitle;
-        
+
+        localStorage.setItem("user", JSON.stringify(user));
+
         writeUserData(user);
 
         //TODO: Update an HTML field
         console.log("Updated user profile");
+
+        window.location.href = "profile-view.html";
     }
     else {
         console.log("User not logged in.");
@@ -135,8 +164,8 @@ function writeUserData(user) {
     if (!user.email) {
         user.email = "";
     }
-    if (!user.fullName) {
-        user.fullName = "";
+    if (!user.displayName) {
+        user.displayName = "";
     }
     if (!user.location) {
         user.location = "";
@@ -159,12 +188,27 @@ function writeUserData(user) {
     // The firebase method to set the data in the database
     userRef.set({
         email: user.email,
-        fullName: user.fullName,
+        displayName: user.displayName,
         location: user.location,
         photo_id: user.photo_id,
         prefix: user.prefix,
         title: user.title
     });
+}
+
+function displayError(error) {
+    var errorDiv = document.getElementById('errors');
+    errorDiv.style.visibility = 'visible';
+    errorDiv.innerHTML = error;
+}
+
+function logout() {
+    console.log("Logging user out");
+    firebase.auth().signOut();
+    localStorage.setItem("user", null);
+    localStorage.setItem("userId", null);
+
+    window.location.href = "login.html";
 }
 
 /**
@@ -174,9 +218,40 @@ function writeUserData(user) {
 function printUser(user) {
     console.log("userId: " + user.uid +
         "\nemail: " + user.email +
-        "\nfullName: " + user.fullName +
+        "\ndisplayName: " + user.displayName +
         "\nlocation: " + user.location +
         "\nphoto_id: " + user.photo_id +
         "\nprefix: " + user.prefix +
         "\ntitle: " + user.title);
+}
+
+function startConversation(){
+    var convoRef = firebase.database().ref('conversations/');
+    var time = (new Date()).getTime();
+    var owner = localStorage.getItem("userId");
+    if (owner){
+    var key = convoRef.push({
+      dateTime: time,
+      owner_id: owner
+  })};
+  convoId=key.key
+    $( document ).ready(function() {
+                $( "#userform" ).submit(function( event ) {
+                  var users=[]
+                    $('input[name="user"]:checked').each(function() {
+                      users.push(this.value)
+                        console.log("the users are ", users);
+                    });
+                        var partRef = firebase.database().ref('participants/');
+                        var user_id = users
+                        user_id.push(localStorage.getItem("userId"));
+                        var conversation_id = convoId
+                        partRef.push({
+                            user_id: user_id,
+                            conversation_id: conversation_id
+                        });
+                });
+            });
+
+  return false;
 }

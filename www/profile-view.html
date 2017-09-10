@@ -39,25 +39,42 @@
 <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-storage.js"></script>
 <script type="text/javascript" src="scripts/firebaseUtils.js"></script>
 
+    <script type="text/javascript">
+        var user = JSON.parse(localStorage.getItem("user"));
+        if (!user) {
+            // If ther user isn't logged in, redirect them to the login page
+            window.location.href = "login.html";
+        } else {
+            // Wait for the document to be loaded
+            $(document).ready(function () {
+                console.log("Page loaded and user logged in.");
+
+                // Get the initials of the user by splitting the name on spaces and get the first
+                // letter of each item in the array
+                var name = user.displayName;
+                var nameSplit = name.split(" ");
+                var initials = "";
+                for (i = 0; i < nameSplit.length; i++) {
+                    initials += nameSplit[i].charAt(0);
+                }
+
+                // Set the rest of the fields from the user variable
+                document.getElementById('profile').innerHTML = initials;
+                document.getElementById('prefix').innerHTML = user.prefix;
+                document.getElementById('name').innerHTML = user.displayName;
+                document.getElementById('job-title').innerHTML = user.title;
+                document.getElementById('location').innerHTML = user.location;
+                document.getElementById('picture').innerHTML = user.photo_id;
+                document.getElementById('device_language').innerHTML = localStorage.getItem("device_language");
+            });
+        }
+    </script>
+
 <script type="text/javascript">
 function swapStyleSheet(sheet){
 	document.getElementById('pagestyle').setAttribute('href', sheet);
 }
 </script>
-
-    <script>
-        var username = "";
-        var password = "";
-        var loginForm = document.getElementById('loginForm');
-
-        function onLoginSubmit() {
-            username = document.getElementById('username').value;
-            password = document.getElementById('password').value;
-
-            window.alert("username = " + username + "\npassword = " + password);
-            return false;
-        }
-    </script>
 
 </head >
         <body>
@@ -95,19 +112,19 @@ function swapStyleSheet(sheet){
 			<div class="decoration"></div>    
 			
 			<div class="container">
-				<h4 class="uppercase center-text"><span class="settings_field">Profile : </span> <span class="settings_value"><span class="circle">JO</span></span></h4>
+				<h4 class="uppercase center-text"><span class="settings_field">Profile : </span> <span class="settings_value"><span class="circle" id="profile"></span></span></h4>
 				
-				<h4 class="uppercase center-text"><span class="settings_field">Prefix : </span> <span class="profile settings_value">Mr</span></h4>
+				<h4 class="uppercase center-text"><span class="settings_field">Prefix : </span> <span class="profile settings_value" id="prefix"></span></h4>
 				
-				<h4 class="uppercase center-text"><span class="settings_field">Name : </span> <span class="profile settings_value">Florian KLEIN</span></h4>
+				<h4 class="uppercase center-text"><span class="settings_field">Name : </span> <span class="profile settings_value" id="name"></span></h4>
 				
-				<h4 class="uppercase center-text"><span class="settings_field">Job Title : </span> <span class="profile settings_value">Software Engineer</span></h4>
+				<h4 class="uppercase center-text"><span class="settings_field">Job Title : </span> <span class="profile settings_value" id="job-title"></span></h4>
 				
-				<h4 class="uppercase center-text"><span class="settings_field">Location : </span> <span class="profile settings_value">Los Angeles</span></h4>
+				<h4 class="uppercase center-text"><span class="settings_field">Location : </span> <span class="profile settings_value" id="location"></span></h4>
 
-				<h4 class="uppercase center-text"><span class="settings_field">Photo : </span> <span class="profile settings_value">No Picture</span></h4>
+				<h4 class="uppercase center-text"><span class="settings_field">Photo : </span> <span class="profile settings_value" id="picture"></span></h4>
 				
-                <h4 class="uppercase center-text"><span class="settings_field">Language : </span> <span class="profile settings_value" id="device_language">N/A</span></h4>
+                <h4 class="uppercase center-text"><span class="settings_field">Language : </span> <span class="profile settings_value" id="device_language"></span></h4>
 
 				<h4 class="uppercase center-text"><input type="button" value="Edit" style="width:127px; border:1px solid #000;display: inline; padding:3px 30px; background-color:#34495E; color:#FFF" onclick="window.location.href = 'profile-edit.html';"/></h4>
 				

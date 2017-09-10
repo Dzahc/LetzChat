@@ -66,7 +66,7 @@
             <!-- Activate the side nav button if necessary -->
             <!--a href="#" class="deploy-sidebar"></a-->
             <img class="logo"  style="margin-top: 10px;" src="images/misc/letzchat_logo_white.png" width="92" alt="img">
-            <a href="contact.html" class="deploy-contact"></a>
+            <a href="profile-view.html" class="deploy-contact"></a>
             <div class="clear"></div>
         </div>
 
@@ -83,6 +83,10 @@
                 <div class="container">
                     
                     <h4 class="uppercase center-text">Signup</h4>
+
+                    <div class="uppercase center-text">
+                        <div id="errors" class="uppercase center-text" style="visibility:hidden"></div>
+                    </div>
 
                     <form onsubmit="return onSignupSubmit()" method="post">
                         <p class="center-text"><span class="form_field">Full Name <span style="color:#F00; font-weight:bold;">*</span> : </span> <input type="text" id="fullName" name="fullName" style="border:1px solid #000;display: inline"></p>
