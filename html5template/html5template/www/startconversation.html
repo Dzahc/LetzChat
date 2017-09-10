@@ -21,7 +21,7 @@
 
          if(data.key=="displayName"){
            console.log(data.key + " is " + data.val())
-           $("#list").append('<input type="radio" name="user" id="track" value=data.val() /><label for=data.val()>Track Submission</label><br />')
+          $("#list").append('<li><input type="checkbox" name="user" id="track" value= '+  snapshot.key +' /><label for=data.val()>' + data.val() +'</label></li>')
 
          }
        })
@@ -33,9 +33,13 @@
 
   <body>
     <div id="userlist">
-      <ul id="list">
+      <form id="userform" onsubmit="return startConversation()" method="post">
+              <ul id="list">
 
-      </ul>
+              </ul>
+              <input type="submit" value="startConversation">
+      </form>
+
 
     </div>
   </body>

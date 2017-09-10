@@ -233,6 +233,6 @@ function startConversation(){
                         });
                 });
             });
-
-  return window.location.href = "chat.html?conversation_id="+ convoId;
+            window.location.href = "chat.html?conversation_id="+ convoId;
+            return false;
 }

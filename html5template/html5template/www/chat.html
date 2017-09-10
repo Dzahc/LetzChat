@@ -100,6 +100,20 @@ console.log(convoid);
         }
     </script>
 
+		<script> //pull conversation
+		    var ref = firebase.database().ref("messages");
+		    ref.orderByChild("conversation_id").equalTo(convoid).on("child_added", function(snapshot) {
+		       console.log("the snapshot ", snapshot.key);
+               snapshot.forEach(function(data) {
+
+                   if(data.key=="displayName"){
+                       console.log(data.key + " is " + data.val())
+           };
+       })
+   })
+
+		</script>
+
 
 </head >
         <body>

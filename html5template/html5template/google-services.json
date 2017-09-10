@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "138258019105",
+    "firebase_url": "https://letzchatenterprise.firebaseio.com",
+    "project_id": "letzchatenterprise",
+    "storage_bucket": "letzchatenterprise.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:138258019105:android:2c36dc5e6a802922",
+        "android_client_info": {
+          "package_name": "com.html5template.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "138258019105-0dgslufeg7eci0vifosah1edaqo5s3es.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBShSmJZlcdgpHQm5esWpprWnu6S6Jx_38"
+        },
+        {
+          "current_key": "AIzaSyAi4U7izO-TrTPnUI8hsoUaam0UK5YNolw"
+        },
+        {
+          "current_key": "AIzaSyD-5I336v68uwcXp-ChW2P8es_PffKWfcI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
