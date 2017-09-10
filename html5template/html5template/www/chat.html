@@ -104,87 +104,113 @@ console.log(convoid);
 		<script> //pull conversation
             var $ = jQuery.noConflict();
 		    var ref = firebase.database().ref("messages");
-            var messageArray = new Array();
+            var messageArray = [];
+            var username;
+            var count =0;
+            var userref = firebase.database().ref("userId");
+
+
 		    ref.orderByChild("conversation_id").equalTo(convoid).on("child_added", function(snapshot) {
-		    //    console.log("the snapshot ", snapshot.key);
-            //    console.log("current message array ", messageArray)
-               //messageArray.push(snapshot.key);
 
-               var index = snapshot.key.toString();
-
+                   userref.orderByKey().equalTo(snapshot.val().user_id).once("child_added",function(snapshots){
+                       count++;
+                       username = snapshots.val().displayName
+                           console.log(username);
+                           console.log(count);
+                   })
+                   console.log("reached line 118");
+               var index = {id:snapshot.key, text:snapshot.val().text, langauge:snapshot.val().language, user_id:username, date:snapshot.val().dateTime}
+               console.log(snapshot.val().user_id);
+               console.log(snapshot.val().text);
                messageArray.push(index);
-
+               console.log(messageArray);
            });
 
+            //    for (var i = 0; i < messageArray.length; i++) {
+            //        console.log("executing for loop 119");
+            //        console.log(i);
+            //        console.log(messageArray[i].user_id);
+            //        var userref = firebase.database().ref("userId");
+            //        var username;
+            //        userref.orderByKey().equalTo(snapshot.val().user_id).once("child_added",function(snapshot){
+            //            console.log(i);
+            //            console.log(snapshot.val());
+            //            snapshot.forEach(function(data){
+            //                username = data.val().displayName
+            //                console.log(username);
+            //            })
+            //            console.log(messageArray[i]);
+            //            messageArray[i].user_id = username;
+            //        })
+            //        console.log(messageArray);
+            //    }
 
-           //console.log(messageArray);
-
-          // for each (var item in messageArray) {
-
-               messageArray.forEach( function(currentValue, index, messageArray){
-
-                    console.log("Value " + currentValue);
-
-               });
 
 
 
-           //}
-            // for (i=0; i<messageArray.length; i++){
 
-            //$(messageArray).each( function( i, value ){
-                //console.log(i);
-                //console.log(value);
-                /*var userid;
-                var text;
-                var dateTime;
-                    var ref2 = firebase.database().ref("messages");
-                    console.log(messageArray[i]);
-                    ref2.orderByKey().equalTo(messageArray[i]).on("child_added", function(snapshot) {
-                       snapshot.forEach(function(data) {
-                         for (key in data){
-                             if (data.key=="text"){
-                                 text = data.val()
-                                 console.log("the text is ", text);
-                             }
-                             if (data.key=="user_id"){
-                                     var ref3 = firebase.database().ref("userId");
-                                     userid = data.val();
-                                     console.log("the user id is ", userid);
-                                     ref3.orderByKey().equalTo(data.val()).on("child_added", function(snapshot) {
-                                        snapshot.forEach(function(data) {
 
-                                          if(data.key=="displayName"){
-                                            var user = data.val();
-                                            console.log("the user is ", user);
-                                          }
-                                        })
-                                       });
-                                   }
-                               if(data.key=="dateTime"){
-                                   dateTime = data.val()
-                                   console.log(dateTime);
-                               }
-                           }
-                       });
-                       console.log('trying to render message');
-                       console.log("Current user is ", localStorage.getItem("userId"));
-                       console.log("the userid is ", userid);
-                       console.log("the text is ", text);
-                       if(userid == localStorage.getItem("userId")){
-                           $( document ).ready(function() {
-                               $(".chat").append('<li class="self"><div class="avatar"><img src="https://i.imgur.com/DY6gND0.png" draggable="false"/></div><div class="msg"><p>' + text + ' </p><time>'+dateTime + '</time></div></li>')
-                           })}
-                           else{
-                            $( document ).ready(function() {
-                                $(".chat").append('<li class="other"><div class="avatar"><img src="https://i.imgur.com/DY6gND0.png" draggable="false"/></div><div class="msg"><p>' + text + ' </p><time>'+dateTime + '</time></div></li>')
-                            });
-                           }
-                  });*/
-             // });
+        //    setTimeout(function(){
+        //     for (i=0; i<messageArray.length; i++){
+        //         var userid;
+        //         var text;
+        //         var dateTime;
+        //             var ref2 = firebase.database().ref("messages");
+        //             // console.log(messageArray[i]);
+        //             ref2.orderByKey().equalTo(messageArray[i]).on("child_added", function(snapshot) {
+        //                snapshot.forEach(function(data) {
+        //                  for (key in data){
+        //                      if (data.key=="text"){
+        //                          text = data.val()
+        //                         //  console.log("the text is ", text);
+        //                      }
+        //                      if (data.key=="user_id"){
+        //                              var ref3 = firebase.database().ref("userId");
+        //                              userid = data.val();
+        //                              var count = 0;
+        //                             //  console.log("the user id is ", userid);
+        //                              ref3.orderByKey().equalTo(data.val()).on("child_added", function(snapshot) {
+        //                                  count++;
+        //                                  console.log('the count is ', count);
+        //                                 snapshot.forEach(function(data) {
+         //
+        //                                   if(data.key=="displayName"){
+        //                                     var user = data.val();
+        //                                     // console.log("the user is ", user);
+        //                                   }
+        //                                 })
+        //                                });
+        //                            }
+        //                        if(data.key=="dateTime"){
+        //                            dateTime = data.val()
+        //                         //    console.log(dateTime);
+        //                        }
+        //                    }
+        //                });
+        //             //    console.log('trying to render message');
+        //             //    console.log("Current user is ", localStorage.getItem("userId"));
+        //             //    console.log("the userid is ", userid);
+        //             //    console.log("the text is ", text);
+        //                if(userid == localStorage.getItem("userId")){
+        //                    $( document ).ready(function() {
+        //                        $(".chat").append('<li class="self"><div class="avatar"><img src="https://i.imgur.com/DY6gND0.png" draggable="false"/></div><div class="msg"><p>' + text + ' </p><time>'+dateTime + '</time></div></li>')
+        //                    })}
+        //                    else{
+        //                     $( document ).ready(function() {
+        //                         $(".chat").append('<li class="other"><div class="avatar"><img src="https://i.imgur.com/DY6gND0.png" draggable="false"/></div><div class="msg"><p>' + text + ' </p><time>'+dateTime + '</time></div></li>')
+        //                     });
+        //                    }
+        //           });
+        //      };
+        //  }, 1000)
 
 
 		</script>
+
+
+
+
+
 
 
 </head >
