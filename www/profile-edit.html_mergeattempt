@@ -1,0 +1,458 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/splash/splash-icon.png">
+<link rel="apple-touch-startup-image" href="images/splash/splash-screen.png" 			media="screen and (max-device-width: 320px)" />  
+<link rel="apple-touch-startup-image" href="images/splash/splash-screen@2x.png" 		media="(max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2)" /> 
+<link rel="apple-touch-startup-image" sizes="640x1096" href="images/splash/splash-screen@3x.png" />
+
+<title>LetzChat - Version 1.0a</title>
+
+<link href="styles/style.css"     		rel="stylesheet" type="text/css">
+<link href="styles/menus-background.css" rel="stylesheet" type="text/css" id="pagestyle">
+<link href="styles/framework.css" 		rel="stylesheet" type="text/css">
+<link href="styles/owl.carousel.css" 	 rel="stylesheet" type="text/css">
+<link href="styles/owl.theme.css" 		rel="stylesheet" type="text/css">
+<link href="styles/swipebox.css"		 rel="stylesheet" type="text/css">
+<link href="styles/colorbox.css"		 rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="scripts/jquery.js"></script>
+<script type="text/javascript" src="scripts/jqueryui.js"></script>
+<script type="text/javascript" src="scripts/owl.carousel.min.js"></script>
+<script type="text/javascript" src="scripts/jquery.swipebox.js"></script>
+<script type="text/javascript" src="scripts/colorbox.js"></script>
+<script type="text/javascript" src="scripts/snap.js"></script>
+<script type="text/javascript" src="scripts/contact.js"></script>
+<script type="text/javascript" src="scripts/custom.js"></script>
+<script type="text/javascript" src="scripts/framework.js"></script>
+<script type="text/javascript" src="scripts/framework.launcher.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-storage.js"></script>
+<script type="text/javascript" src="scripts/firebaseUtils.js"></script>
+
+<script type="text/javascript">
+function swapStyleSheet(sheet){
+	document.getElementById('pagestyle').setAttribute('href', sheet);
+}
+</script>
+
+</head >
+        <body>
+
+
+
+            <div id="preloader">
+                <div id="status">
+                    <p class="center-text">
+                        Loading the content...
+            <em>Loading depends on your connection speed!</em>
+                    </p>
+                </div>
+            </div>
+
+ 
+
+<div class="clear"></div>
+
+            <div class="all-elements">
+                <div class="content-header">
+                    <a href="#" class="deploy-sidebar"></a>
+                    <img class="logo" src="images/misc/letzchat_logo_white.png" width="92" alt="img">
+                        <a href="profile-view.html" class="deploy-contact"></a>
+                        <div class="clear"></div>
+    </div>
+
+    <div data-include="side-nav"></div>
+
+
+    <div id="content" class="page-content">
+        
+        <div class="content">
+            
+			<div class="decoration"></div>    
+			
+			<div class="container">
+				
+				<form onsubmit="return onProfileSubmit()" enctype="multipart/form-data" name="profileupdate">
+				
+				<h4 class="uppercase center-text"><span class="settings_field">Profile : </span> <span class="settings_value"><span class="circle">FK</span></span></h4>
+				
+				<h4 class="uppercase center-text">
+					<span class="settings_field">Prefix : </span> 
+					<span class="profile settings_value">
+						<select name="title" id="title" style="border:1px solid #000; width:151px;">
+							<option value="Mr" selected="selected">Mr </option>
+							<option value="Ms">Ms </option>
+							<option value="Mrs">Mrs </option>
+						</select>
+					</span>
+				</h4>
+				
+				<h4 class="uppercase center-text"><span class="settings_field">Name : </span> <span class="profile settings_value"><input type="text" name="name" id="name" value="Florian KLEIN" style="border:1px solid #000; padding-left:4px;"/></span></h4>
+				
+				<h4 class="uppercase center-text"><span class="settings_field">Job Title : </span> <span class="profile settings_value"><input type="text" name="job-title" id="job-title" value="Software Engineer" style="border:1px solid #000; padding-left:4px;"/></span></h4>
+				
+				<h4 class="uppercase center-text"><span class="settings_field">Location : </span> <span class="profile settings_value"><input type="text" name="location" id="location" value="Los Angeles" style="border:1px solid #000; padding-left:4px;"/></span></h4>
+
+				<h4 class="uppercase center-text"><span class="settings_field">Photo : </span> <span class="profile settings_value"><img id="MyPicture" style="width:200px;" /><input type="button" onclick="getPictureFromDEvice()" value="Choose a picture" style="width:127px; border:1px solid #000;display: inline; padding:3px; background-color:#34495E; color:#FFF" /></span></h4>                
+				
+				<h4 class="uppercase center-text"><input type="button" onclick="onProfileSubmit()" value="Save" style="width:127px; border:1px solid #000;display: inline; padding:3px 30px; background-color:#34495E; color:#FFF"/></h4>
+				
+                    
+				
+                </form>
+
+                <h4 class="uppercase center-text"></h4>
+
+			</div>
+
+				<div class="decoration"></div>
+
+				<p class="copyright uppercase center-text">LetzChat &copy; Copyright 2017 - All rights reserved</p>
+				<p class="copyright center-text">  <a class="blue" href="docs/policy.html">Policy</a> | <a class="blue" href="docs/terms.html">Terms and Conditions</a></p>
+                
+				<div style="height:60px"></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="scripts/platformOverrides.js"></script>
+<script type="text/javascript" src="scripts/profile-edit.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-storage.js"></script>
+<script type="text/javascript" src="scripts/firebaseUtils.js"></script>
+
+<script type="text/javascript">
+
+    var $ = jQuery.noConflict(); 
+
+    var file;
+
+    // Create a root reference
+    var storageRef = firebase.storage().ref();
+
+    loadPicture();
+
+    function alertCancelled() {
+        // do something
+    }
+
+    function loadPicture() {
+
+        // Create a reference to the file we want to download
+        storageRef.child('images/a.jpg').getDownloadURL().then(function onSuccess(url) {
+
+            $("#MyPicture").attr("src", url);
+
+        })
+            .catch(function onError(err) {
+                console.log("Error occured..." + err);
+            });
+
+    }
+
+    function getPictureFromDEvice() {
+        navigator.camera.getPicture(onSuccess, onFail, {
+            quality: 50,
+            sourceType: Camera.PictureSourceType.CAMERA,
+            destinationType: Camera.DestinationType.DATA_URL
+        }); 
+    }
+
+    function urltoFile(url, filename, mimeType) {
+        return (fetch(url)
+            .then(function (res) { return res.arrayBuffer(); })
+            .then(function (buf) { return new File([buf], filename, { type: mimeType }); })
+        );
+    }
+
+    function onSuccess(imageData) {
+        /*navigator.notification.alert(
+            'Upload SUCCESS\n',      // message
+            alertCancelled,  // callback
+            'Picture',      // title
+            'From Device'           // buttonName
+        );*/
+        
+        
+
+        var image = document.getElementById('MyPicture');
+
+        image.src = "data:image/jpeg;base64," + imageData;
+
+        var the_file;
+
+        //Usage example:
+        urltoFile('data:image/png;base64,' + imageData, 'a.jpg', 'image/jpeg').then(function (file) {
+
+            the_file = file;
+
+            var metadata = {
+                contentType: 'image/jpeg'
+            };
+
+            //
+            //  Before uploading to server check google safe search
+            //
+            // Strip out the file prefix when you convert to json.
+            var json = '{' +
+                ' "requests": [' +
+                '	{ ' +
+                '	  "image": {' +
+                '	    "content":"' + imageData + '"' +
+                '	  },' +
+                '	  "features": [' +
+                '	      {' +
+                '	      	"type": "SAFE_SEARCH_DETECTION",' +
+                '			"maxResults": 200' +
+                '	      }' +
+                '	  ]' +
+                '	}' +
+                ']' +
+                '}';
+
+            $.ajax({
+                type: 'POST',
+                url: "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyCeJljhj9ChaPHoDuYr5O1RzljzjP9S040",
+                dataType: 'json',
+                data: json,
+                //Include headers, otherwise you get an odd 400 error.
+                headers: {
+                    "Content-Type": "application/json",
+                },
+
+                success: function (data, textStatus, jqXHR) {
+
+                    var appropriate = 0;
+
+                    //
+                    //  Check if the picture is appropriate 
+                    //Your picture is flagged as inappropriate, please choose another one.
+                    $.each(data['responses'][0]['safeSearchAnnotation'], function (index, value) {
+
+                        if (value == 'VERY_LIKELY' || value == 'LIKELY') {
+
+                            navigator.notification.alert(
+                                'Your picture is flagged as inappropriate, \nplease choose another one.\n',      // message
+                                alertCancelled,  // callback
+                                'Upload ERROR',      // title
+                                'Cancel'           // buttonName
+                            );
+
+
+                        } else {
+
+                            appropriate++;
+
+                        }                       
+
+                    });
+
+                    if (appropriate == 4) {
+
+                        UploadProfilePicture(the_file, metadata, storageRef);
+                    }
+                    
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log('ERRORS: ' + textStatus + ' ' + errorThrown);
+                    return false;
+                }
+            });
+
+            
+
+        });
+        
+    }
+
+    function UploadProfilePicture(the_file, metadata, storageRef) {
+        // Upload file and metadata to the object 'images/mountains.jpg'
+        var uploadTask = storageRef.child('images/' + the_file.name).put(the_file, metadata);
+
+        // Listen for state changes, errors, and completion of the upload.
+        uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+
+            function (snapshot) {
+                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+                console.log('Upload is ' + progress + '% done');
+
+                switch (snapshot.state) {
+                    case firebase.storage.TaskState.PAUSED: // or 'paused'
+                        console.log('Upload is paused');
+                        break;
+                    case firebase.storage.TaskState.RUNNING: // or 'running'
+                        console.log('Upload is running');
+                        break;
+                }
+
+            }, function (error) {
+
+                // A full list of error codes is available at
+                // https://firebase.google.com/docs/storage/web/handle-errors
+
+                switch (error.code) {
+                    case 'storage/unauthorized':
+                        // User doesn't have permission to access the object
+                        break;
+
+                    case 'storage/canceled':
+                        // User canceled the upload
+                        break;
+
+                    case 'storage/unknown':
+                        // Unknown error occurred, inspect error.serverResponse
+                        break;
+                }
+            }, function () {
+                // Upload completed successfully, now we can get the download URL
+                var downloadURL = uploadTask.snapshot.downloadURL;
+
+                navigator.notification.alert(
+                    'Your picture was approved\n',      // message
+                    alertCancelled,  // callback
+                    'Picture',      // title
+                    'OK'           // buttonName
+                );
+            });
+    }
+
+    function onFail(message) {
+        navigator.notification.alert(
+            'Upload FAIL\n',      // message
+            alertCancelled,  // callback
+            'ERROR',      // title
+            'From Device'           // buttonName
+        );
+    }
+
+    function onProfileSubmit() {
+
+        
+
+        //
+        //  Get the file path
+        //
+        var picturePath = $("#picture").val();
+
+        var picturePathSantized = picturePath.replace(/\\/g, "/");
+
+        console.log(picturePathSantized);
+
+        var PictureName = picturePathSantized.split('/').pop();
+
+
+        //
+        //  Display an alert with the name of the picture
+        //
+        navigator.notification.alert(
+            'Your picture is being uploaded \nPath: ' + picturePathSantized + '\nPicture File: ' + PictureName  + '\n',      // message
+            alertCancelled,  // callback
+            'Picture',      // title
+            'Thanks Buddy'           // buttonName
+        );
+
+        
+        // Create a root reference
+        var storageRef = firebase.storage().ref();
+
+        var file = document.forms['profileupdate']['picture'].files[0]; 
+
+        console.log(file);
+
+        
+        // Create the file metadata
+        var metadata = {
+            contentType: 'image/jpeg'
+        };
+
+        // Upload file and metadata to the object 'images/mountains.jpg'
+        var uploadTask = storageRef.child('images/' + file.name).put(file, metadata);
+
+        // Listen for state changes, errors, and completion of the upload.
+        uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+
+            function (snapshot) {
+                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                var progress = (snapshot.bytesTransferred / snapshot.totalBytes  + 1) * 100;
+
+                console.log('Upload is ' + progress + '% done');
+
+                switch (snapshot.state) {
+                    case firebase.storage.TaskState.PAUSED: // or 'paused'
+                        console.log('Upload is paused');
+                        break;
+                    case firebase.storage.TaskState.RUNNING: // or 'running'
+                        console.log('Upload is running');
+                        break;
+                }
+
+            },  function (error) {
+
+                // A full list of error codes is available at
+                // https://firebase.google.com/docs/storage/web/handle-errors
+
+                switch (error.code) {
+                    case 'storage/unauthorized':
+                        // User doesn't have permission to access the object
+                        break;
+
+                    case 'storage/canceled':
+                        // User canceled the upload
+                        break;
+
+                    case 'storage/unknown':
+                      // Unknown error occurred, inspect error.serverResponse
+                      break;
+                    }
+                },  function() {
+                        // Upload completed successfully, now we can get the download URL
+                        var downloadURL = uploadTask.snapshot.downloadURL;
+                    });
+        
+        return false;
+
+    }
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
