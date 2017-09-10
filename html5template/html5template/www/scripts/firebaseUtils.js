@@ -17,13 +17,15 @@ firebase.initializeApp(config);
  */
 function onLoginSubmit() {
     firebase.auth().signOut();
+    localStorage.setItem("user", null);
+    localStorage.setItem("userId", null);
 
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
 
     console.log("username = " + username + "\npassword = " + password);
     if (username === "" || password === "") {
-        //TODO: Print a message to Login Error Div
+        displayError("Please enter an email and password");
         return false;
     }
 
@@ -34,7 +36,7 @@ function onLoginSubmit() {
         var errorMessage = error.message;
         if (errorCode) {
             console.log(errorCode + ": " + errorMessage);
-            error2 = errorCode;
+            displayError(errorMessage);
         }
     });
 
@@ -42,6 +44,7 @@ function onLoginSubmit() {
     firebase.auth().onAuthStateChanged(function (user) {
         // Check if the user variable is not null and that it is the current user
         if (user && user.email === username) {
+
             console.log("Logged in successfully");
 
             // Store the uid
@@ -73,7 +76,7 @@ function onSignupSubmit() {
 
     console.log("displayName = " + displayName + "\nusername = " + username + "\npassword = " + password);
     if (displayName === "" || username === "" || password === "") {
-        //TODO: Print a message to Login Error Div
+        displayError("Please enter a name, email, and password");
         return false;
     }
 
@@ -85,6 +88,7 @@ function onSignupSubmit() {
         if (errorCode !== null) {
             // TODO: put the errorCode/Message in a div on the page
             console.log(errorCode + ": " + errorMessage);
+            displayError(errorMessage);
         }
     });
 
@@ -134,6 +138,7 @@ function onProfileSubmit() {
         user.photo_id = picture;
         user.prefix = prefix;
         user.title = jobTitle;
+        localStorage.setItem("user", JSON.stringify(user));
         
         writeUserData(user);
 
@@ -188,6 +193,12 @@ function writeUserData(user) {
         prefix: user.prefix,
         title: user.title
     });
+}
+
+function displayError(error) {
+    var errorDiv = document.getElementById('errors');
+    errorDiv.style.visibility = 'visible';
+    errorDiv.innerHTML = error;
 }
 
 /**

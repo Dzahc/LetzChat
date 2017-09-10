@@ -39,6 +39,54 @@
 <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-storage.js"></script>
 <script type="text/javascript" src="scripts/firebaseUtils.js"></script>
 
+    <script type="text/javascript">
+            var user = JSON.parse(localStorage.getItem("user"));
+        if (!user) {
+            // If ther user isn't logged in, redirect them to the login page
+            window.location.href = "login.html";
+        } else {
+            // Wait for the document to be loaded
+            $(document).ready(function () {
+                console.log("Page loaded and user logged in.");
+
+                // Get the initials of the user by splitting the name on spaces and get the first
+                // letter of each item in the array
+                var name = user.displayName;
+                var nameSplit = name.split(" ");
+                var initials = "";
+                for (i = 0; i < nameSplit.length; i++) {
+                    initials += nameSplit[i].charAt(0);
+                }
+
+                // Div containing the option
+                var titleElem = document.getElementById('title');
+                // The options element
+                var titleOptions = titleElem.options;
+                // From the user
+                var title = user.prefix;
+                // If nothing is set, use the default
+                if (!title) {
+                    titleElem.selectedIndex = 0;
+                } else {
+                    // Find the user defined value in the list of options and set it
+                    for (j = 0; j < titleOptions.length; j++) {
+                        console.log("option " + j + " = " + titleOptions[j].value);
+                        if (title == titleOptions[j].value) {
+                            titleElem.selectedIndex = j;
+                        }
+                    }
+                }
+
+                // Set the rest of the fields from the user variable
+                document.getElementById('profile').innerHTML = initials;
+                document.getElementById('name').value = user.displayName;
+                document.getElementById('job-title').value = user.title;
+                document.getElementById('location').value = user.location;
+                document.getElementById('picture').value = user.photo_id;
+            });
+        }
+    </script>
+
 <script type="text/javascript">
 function swapStyleSheet(sheet){
 	document.getElementById('pagestyle').setAttribute('href', sheet);
@@ -84,7 +132,7 @@ function swapStyleSheet(sheet){
 				
 				<form onsubmit="return onProfileSubmit()" method="post">
 				
-				<h4 class="uppercase center-text"><span class="settings_field">Profile : </span> <span class="settings_value"><span class="circle">FK</span></span></h4>
+				<h4 class="uppercase center-text"><span class="settings_field">Profile : </span> <span class="settings_value"><span class="circle" id="profile">FK</span></span></h4>
 				
 				<h4 class="uppercase center-text">
 					<span class="settings_field">Prefix : </span> 
