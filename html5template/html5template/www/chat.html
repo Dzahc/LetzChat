@@ -46,10 +46,18 @@ function swapStyleSheet(sheet){
 }
 </script>
 
+<script>   //get paramter from URL
+var query = window.location.search.substring(1);
+console.log(query)
+var paramurl = query.split("=");
+var convoid = paramurl[1];
+console.log(convoid);
+</script>
+
 
     <script type="text/javascript" >
-    var user_id = "";
-    var conversation_id = "";
+    var user_id = localStorage.getItem("userId");
+    var conversation_id = convoid;
     var dateTime = new Date().toString();
     var language = localStorage.getItem("device_language");
     var text = "";
@@ -58,7 +66,7 @@ function swapStyleSheet(sheet){
         console.log("function called");
         text = document.getElementById('message').value;
 
-
+        console.log("testing code ", localStorage.getItem("device_language"));
         console.log("the time is " + dateTime);
         console.log("the language is " + language);
         console.log("the message is " + text);

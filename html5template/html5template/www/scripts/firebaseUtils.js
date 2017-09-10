@@ -24,12 +24,14 @@ function onLoginSubmit() {
     console.log("username = " + username + "\npassword = " + password);
     if (username === "" || password === "") {
         //TODO: Print a message to Login Error Div
+        console.log("error hell");
         return false;
     }
-
+console.log("reached line 30");
     // Firebase user sign in method
     firebase.auth().signInWithEmailAndPassword(username, password).catch(function (error) {
         // Handle Errors here.
+        console.log("attempting login");
         var errorCode = error.code;
         var errorMessage = error.message;
         if (errorCode) {
@@ -37,7 +39,7 @@ function onLoginSubmit() {
             error2 = errorCode;
         }
     });
-
+console.log("skipped to line 42");
         // Once the user is authenticated, grab the user variable
     firebase.auth().onAuthStateChanged(function (user) {
         // Check if the user variable is not null and that it is the current user
@@ -93,7 +95,7 @@ function onSignupSubmit() {
         if (user && user.email === username) {
             console.log("Created user successfully");
             user.updateProfile({
-                displayName: displayName,
+                displayName: displayName
             }).then(function() {
                 console.log("Updated user profile");
 
@@ -212,19 +214,19 @@ function startConversation(){
     var key = convoRef.push({
       dateTime: time,
       owner_id: owner
-  })};
-  convoId=key.key
+  });}
+  convoId=key.key;
     $( document ).ready(function() {
                 $( "#userform" ).submit(function( event ) {
-                  var users=[]
+                  var users=[];
                     $('input[name="user"]:checked').each(function() {
-                      users.push(this.value)
+                      users.push(this.value);
                         console.log("the users are ", users);
                     });
                         var partRef = firebase.database().ref('participants/');
-                        var user_id = users
+                        var user_id = users;
                         user_id.push(localStorage.getItem("userId"));
-                        var conversation_id = convoId
+                        var conversation_id = convoId;
                         partRef.push({
                             user_id: user_id,
                             conversation_id: conversation_id
@@ -232,5 +234,5 @@ function startConversation(){
                 });
             });
 
-  return false;
+  return window.location.href = "chat.html?conversation_id="+ convoId;
 }
