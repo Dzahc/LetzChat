@@ -201,6 +201,15 @@ function displayError(error) {
     errorDiv.innerHTML = error;
 }
 
+function logout() {
+    console.log("Logging user out");
+    firebase.auth().signOut();
+    localStorage.setItem("user", null);
+    localStorage.setItem("userId", null);
+
+    window.location.href = "login.html";
+}
+
 /**
  * Debug method to verify data variables
  * @param {any} user The current user
