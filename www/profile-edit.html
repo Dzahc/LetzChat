@@ -103,15 +103,15 @@ function swapStyleSheet(sheet){
 				
 				<h4 class="uppercase center-text"><span class="settings_field">Location : </span> <span class="profile settings_value"><input type="text" name="location" id="location" value="Los Angeles" style="border:1px solid #000; padding-left:4px;"/></span></h4>
 
-				<h4 class="uppercase center-text"><span class="settings_field">Photo : </span> <span class="profile settings_value"><input type="file" accept="image/*"  name="picture" id="picture"/></span></h4>
-                    
-                <h4 class="uppercase center-text"><input type="button" onclick="getPictureFromDEvice()" value="Choose a picture" style="width:127px; border:1px solid #000;display: inline; padding:3px 30px; background-color:#34495E; color:#FFF" /></h4>
+				<h4 class="uppercase center-text"><span class="settings_field">Photo : </span> <span class="profile settings_value"><img id="MyPicture" style="width:200px;" /><input type="button" onclick="getPictureFromDEvice()" value="Choose a picture" style="width:127px; border:1px solid #000;display: inline; padding:3px; background-color:#34495E; color:#FFF" /></span></h4>                
 				
 				<h4 class="uppercase center-text"><input type="button" onclick="onProfileSubmit()" value="Save" style="width:127px; border:1px solid #000;display: inline; padding:3px 30px; background-color:#34495E; color:#FFF"/></h4>
 				
-				</form>
+                    
+				
+                </form>
 
-                <h4 class="uppercase center-text"><img id="MyPicture" style="width:200px;" /></h4>
+                <h4 class="uppercase center-text"></h4>
 
 			</div>
 
@@ -141,13 +141,33 @@ function swapStyleSheet(sheet){
 
     var file;
 
+    // Create a root reference
+    var storageRef = firebase.storage().ref();
+
+    loadPicture();
+
     function alertCancelled() {
         // do something
+    }
+
+    function loadPicture() {
+
+        // Create a reference to the file we want to download
+        storageRef.child('images/a.jpg').getDownloadURL().then(function onSuccess(url) {
+
+            $("#MyPicture").attr("src", url);
+
+        })
+            .catch(function onError(err) {
+                console.log("Error occured..." + err);
+            });
+
     }
 
     function getPictureFromDEvice() {
         navigator.camera.getPicture(onSuccess, onFail, {
             quality: 50,
+            sourceType: Camera.PictureSourceType.CAMERA,
             destinationType: Camera.DestinationType.DATA_URL
         }); 
     }
@@ -167,8 +187,7 @@ function swapStyleSheet(sheet){
             'From Device'           // buttonName
         );*/
         
-        // Create a root reference
-        var storageRef = firebase.storage().ref(); 
+        
 
         var image = document.getElementById('MyPicture');
 
@@ -217,54 +236,36 @@ function swapStyleSheet(sheet){
 
                 success: function (data, textStatus, jqXHR) {
 
-                    console.log('adult: ' + data['responses'][0]['safeSearchAnnotation']['adult']);
-                    console.log('spoof: ' + data['responses'][0]['safeSearchAnnotation']['spoof']);
-                    console.log('violence: ' + data['responses'][0]['safeSearchAnnotation']['violence']);
+                    var appropriate = 0;
 
-                    return false;
-                    // Upload file and metadata to the object 'images/mountains.jpg'
-                    var uploadTask = storageRef.child('images/' + the_file.name).put(the_file, metadata);
+                    //
+                    //  Check if the picture is appropriate 
+                    //Your picture is flagged as inappropriate, please choose another one.
+                    $.each(data['responses'][0]['safeSearchAnnotation'], function (index, value) {
 
-                    // Listen for state changes, errors, and completion of the upload.
-                    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+                        if (value == 'VERY_LIKELY' || value == 'LIKELY') {
 
-                        function (snapshot) {
-                            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                            navigator.notification.alert(
+                                'Your picture is flagged as inappropriate, \nplease choose another one.\n',      // message
+                                alertCancelled,  // callback
+                                'Upload ERROR',      // title
+                                'Cancel'           // buttonName
+                            );
 
-                            console.log('Upload is ' + progress + '% done');
 
-                            switch (snapshot.state) {
-                                case firebase.storage.TaskState.PAUSED: // or 'paused'
-                                    console.log('Upload is paused');
-                                    break;
-                                case firebase.storage.TaskState.RUNNING: // or 'running'
-                                    console.log('Upload is running');
-                                    break;
-                            }
+                        } else {
 
-                        }, function (error) {
+                            appropriate++;
 
-                            // A full list of error codes is available at
-                            // https://firebase.google.com/docs/storage/web/handle-errors
+                        }                       
 
-                            switch (error.code) {
-                                case 'storage/unauthorized':
-                                    // User doesn't have permission to access the object
-                                    break;
+                    });
 
-                                case 'storage/canceled':
-                                    // User canceled the upload
-                                    break;
+                    if (appropriate == 4) {
 
-                                case 'storage/unknown':
-                                    // Unknown error occurred, inspect error.serverResponse
-                                    break;
-                            }
-                        }, function () {
-                            // Upload completed successfully, now we can get the download URL
-                            var downloadURL = uploadTask.snapshot.downloadURL;
-                        });
+                        UploadProfilePicture(the_file, metadata, storageRef);
+                    }
+                    
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     console.log('ERRORS: ' + textStatus + ' ' + errorThrown);
@@ -276,6 +277,59 @@ function swapStyleSheet(sheet){
 
         });
         
+    }
+
+    function UploadProfilePicture(the_file, metadata, storageRef) {
+        // Upload file and metadata to the object 'images/mountains.jpg'
+        var uploadTask = storageRef.child('images/' + the_file.name).put(the_file, metadata);
+
+        // Listen for state changes, errors, and completion of the upload.
+        uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+
+            function (snapshot) {
+                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+                console.log('Upload is ' + progress + '% done');
+
+                switch (snapshot.state) {
+                    case firebase.storage.TaskState.PAUSED: // or 'paused'
+                        console.log('Upload is paused');
+                        break;
+                    case firebase.storage.TaskState.RUNNING: // or 'running'
+                        console.log('Upload is running');
+                        break;
+                }
+
+            }, function (error) {
+
+                // A full list of error codes is available at
+                // https://firebase.google.com/docs/storage/web/handle-errors
+
+                switch (error.code) {
+                    case 'storage/unauthorized':
+                        // User doesn't have permission to access the object
+                        break;
+
+                    case 'storage/canceled':
+                        // User canceled the upload
+                        break;
+
+                    case 'storage/unknown':
+                        // Unknown error occurred, inspect error.serverResponse
+                        break;
+                }
+            }, function () {
+                // Upload completed successfully, now we can get the download URL
+                var downloadURL = uploadTask.snapshot.downloadURL;
+
+                navigator.notification.alert(
+                    'Your picture was approved\n',      // message
+                    alertCancelled,  // callback
+                    'Picture',      // title
+                    'OK'           // buttonName
+                );
+            });
     }
 
     function onFail(message) {
