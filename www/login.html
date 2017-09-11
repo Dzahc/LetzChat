@@ -47,13 +47,31 @@ function swapStyleSheet(sheet){
 
     <script type="text/javascript">
         $(document).ready(function () {
-            console.log("Page loaded and user logged out.");
-            firebase.auth().signOut();
-            localStorage.setItem("user", null);
-            localStorage.setItem("userId", null);
+            
+
+            //
+            //  Try to auto-load the user
+            //
+            var user = JSON.parse(localStorage.getItem("user"));
+
+            if ( user ) {
+
+                //
+                //  Redirect
+                //
+                window.location.href = "profile-edit.html";
+
+            } else {
+
+                console.log("Page loaded and user logged out.");
+                firebase.auth().signOut();
+                localStorage.setItem("user", null);
+                localStorage.setItem("userId", null);
+
+            }
 
         });
-    </script>
+    </script> 
 
 
 </head >

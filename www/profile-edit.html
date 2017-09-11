@@ -42,8 +42,60 @@
 <script type="text/javascript">
 function swapStyleSheet(sheet){
 	document.getElementById('pagestyle').setAttribute('href', sheet);
-}
+    }
+
 </script>
+    <script type="text/javascript">
+
+        var user = JSON.parse(localStorage.getItem("user"));
+
+        if (!user) {
+            // If ther user isn't logged in, redirect them to the login page
+            window.location.href = "login.html";
+        } else {
+            // Wait for the document to be loaded
+            $(document).ready(function () {
+                console.log("Page loaded and user logged in.");
+
+                // Get the initials of the user by splitting the name on spaces and get the first
+                // letter of each item in the array
+                var name = user.displayName;
+                var nameSplit = name.split(" ");
+                var initials = "";
+                for (i = 0; i < nameSplit.length; i++) {
+                    initials += nameSplit[i].charAt(0);
+                }
+
+                // Div containing the option
+                var titleElem = document.getElementById('title');
+                // The options element
+                var titleOptions = titleElem.options;
+                // From the user
+                var title = user.prefix;
+                // If nothing is set, use the default
+                if (!title) {
+                    titleElem.selectedIndex = 0;
+                } else {
+                    // Find the user defined value in the list of options and set it
+                    for (j = 0; j < titleOptions.length; j++) {
+                        console.log("option " + j + " = " + titleOptions[j].value);
+                        if (title == titleOptions[j].value) {
+                            titleElem.selectedIndex = j;
+                        }
+                    }
+                }
+
+                // Set the rest of the fields from the user variable
+                document.getElementById('profile').innerHTML    = initials;
+                document.getElementById('name').value           = user.displayName;
+                document.getElementById('job-title').value      = user.title;
+                document.getElementById('location').value       = user.location;
+                //document.getElementById('picture').value = user.photo_id;
+            });
+        }
+    </script>
+
+
 
 </head >
         <body>
@@ -103,11 +155,16 @@ function swapStyleSheet(sheet){
 				
 				<h4 class="uppercase center-text"><span class="settings_field">Location : </span> <span class="profile settings_value"><input type="text" name="location" id="location" value="Los Angeles" style="border:1px solid #000; padding-left:4px;"/></span></h4>
 
-				<h4 class="uppercase center-text"><span class="settings_field">Photo : </span> <span class="profile settings_value"><img id="MyPicture" style="width:200px;" /><input type="button" onclick="getPictureFromDEvice()" value="Choose a picture" style="width:127px; border:1px solid #000;display: inline; padding:3px; background-color:#34495E; color:#FFF" /></span></h4>                
+				<h4 class="uppercase center-text">
+                    <span class="settings_field">Photo : 
+                    </span> 
+                    <span class="profile settings_value">
+                        <img id="MyPicture" style="width:200px;" />
+                        <input type="button" onclick="getPictureFromDEvice()" value="Choose a picture" style="width:127px; border:1px solid #000;display: inline; padding:3px; background-color:#34495E; color:#FFF" />
+                    </span>
+                </h4>                
 				
 				<h4 class="uppercase center-text"><input type="button" onclick="onProfileSubmit()" value="Save" style="width:127px; border:1px solid #000;display: inline; padding:3px 30px; background-color:#34495E; color:#FFF"/></h4>
-				
-                    
 				
                 </form>
 
@@ -152,15 +209,27 @@ function swapStyleSheet(sheet){
 
     function loadPicture() {
 
-        // Create a reference to the file we want to download
-        storageRef.child('images/a.jpg').getDownloadURL().then(function onSuccess(url) {
+        if (user.uid) {
 
-            $("#MyPicture").attr("src", url);
+            var pic_name = user.uid;
 
-        })
-            .catch(function onError(err) {
+        } else {
+
+            var pic_name = "a";
+
+        }
+            // Create a reference to the file we want to download
+            storageRef.child('images/' + pic_name + '.jpg').getDownloadURL().then(function onSuccess(url) {
+
+                $("#MyPicture").attr("src", url);
+
+            }).catch(function onError(err) {
+
                 console.log("Error occured..." + err);
+
             });
+
+        
 
     }
 
@@ -195,8 +264,18 @@ function swapStyleSheet(sheet){
 
         var the_file;
 
-        //Usage example:
-        urltoFile('data:image/png;base64,' + imageData, 'a.jpg', 'image/jpeg').then(function (file) {
+        if (user.uid) {
+
+            var pic_name = user.uid;
+
+        } else {
+
+            var pic_name = "a";
+
+        }
+
+        //Usage example: 
+        urltoFile('data:image/png;base64,' + imageData, pic_name + '.jpg', 'image/jpeg').then(function (file) {
 
             the_file = file;
 
@@ -423,7 +502,7 @@ function swapStyleSheet(sheet){
                 },  function() {
                         // Upload completed successfully, now we can get the download URL
                         var downloadURL = uploadTask.snapshot.downloadURL;
-                    });
+                   });
         
         return false;
 

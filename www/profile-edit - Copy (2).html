@@ -152,15 +152,20 @@ function swapStyleSheet(sheet){
 
     function loadPicture() {
 
-        // Create a reference to the file we want to download
-        storageRef.child('images/a.jpg').getDownloadURL().then(function onSuccess(url) {
+        if (user.uid) {
 
-            $("#MyPicture").attr("src", url);
+            // Create a reference to the file we want to download
+            storageRef.child('images/' + user.uid + '.jpg').getDownloadURL().then(function onSuccess(url) {
 
-        })
-            .catch(function onError(err) {
+                $("#MyPicture").attr("src", url);
+
+            }).catch(function onError(err) {
+
                 console.log("Error occured..." + err);
+
             });
+
+        }
 
     }
 
