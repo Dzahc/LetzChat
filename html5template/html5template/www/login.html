@@ -45,6 +45,16 @@ function swapStyleSheet(sheet){
 }
 </script>
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            console.log("Page loaded and user logged out.");
+            firebase.auth().signOut();
+            localStorage.setItem("user", null);
+            localStorage.setItem("userId", null);
+
+        });
+    </script>
+
 
 </head >
         <body>
