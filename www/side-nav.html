@@ -1,50 +1,109 @@
+
+
+<script>
+    
+    var ref = firebase.database().ref("participants");
+    var userArray = [];
+    var othersArray = [];
+    var userref = firebase.database().ref("userId"); 
+    var convref = firebase.database().ref("conversations"); 
+
+
+    //console.log(localStorage.getItem("userId"));
+
+    ref.orderByChild("user_id").on("child_added", function (snapshot) {
+
+       // console.log('got to 16');
+
+        // console.log(snapshot.val().user_id);
+
+        //console.log(snapshot.val());
+
+        userArray = snapshot.val().user_id;
+
+        //console.log('the user array is ', userArray);
+
+        for (var i = 0; i < userArray.length; i++) {
+
+            
+
+            if (userArray[i] == localStorage.getItem("userId")) {
+                console.log(snapshot.val().conversation_id);
+
+                $("#chats").append('<li><a href="chat.html?conversation_id=' + snapshot.val().conversation_id + ' ">TestChat</a></li>')
+                othersArray = userArray
+                othersArray.splice(i, 1)
+                //console.log("other users are", othersArray);
+                for (var i = 0; i < othersArray.length; i++) {
+                    userref.orderByKey().equalTo(othersArray[i]).once("child_added", function (snapshots) {
+                        username = snapshots.val().displayName
+                        //console.log("line 39 ", username);
+                    })
+                }
+            }
+        }
+    });
+
+    //
+    //  Load Conversations
+    //
+    convref.orderByChild("dateTime").on("child_added", function (snapshot) {
+
+        console.log( snapshot.key );
+
+        $("#chats").append('<li><a href="chat.html?conversation_id=' + snapshot.key + '">' + snapshot.key + ' </a></li>');
+
+    });
+</script>
+
+
 <div id="sidebar" class="page-sidebar">
-        <div class="page-sidebar-scroll">
-            
-			<p class="sidebar-title">Channels</p>
-            <div class="sidebar-decoration"></div>
-			
-			<div class="sidebar-navigation">
-				<ul class = "no-bullets">
-						<li><a href="index.html">Channel 1</a></li>
-						<li><a href="index.html">Channel 2</a></li>
-						<li><a href="index.html">Channel 3</a></li>
-						<li><a href="index.html">Channel 4</a></li>
-				</ul>
-			</div>
-            
-			<div class="sidebar-decoration"></div>
-			<p class="sidebar-title">CHATS</p>
-            <div class="sidebar-decoration"></div> 
+    <div class="page-sidebar-scroll">
 
-            <div class="sidebar-navigation">
-                <ul class="no-bullets">
-                    <li><a href="index.html">Chat 1</a></li>
-                    <li><a href="index.html">Chat 2</a></li>
-                    <li><a href="index.html">Chat 3</a></li>
-                    <li><a href="index.html">Chat 4</a></li>
-                </ul>
-            </div>
-            
-			<div class="sidebar-decoration"></div>
-			<p class="sidebar-title">OPTIONS</p>
-            <div class="sidebar-decoration"></div> 
-            
-            <div class="page-notifications information-notification">
-            	<h4>Settings</h4>
-                <p>Change all your personal info</p>
-            </div>
+        <p class="sidebar-title">Channels</p>
+        <div class="sidebar-decoration"></div>
 
-            <div class="page-notifications warning-notification" id="logout" onclick="logout()">
-                <a href="login.html">
-                    <h4>Logout</h4>
-                    <p>Logout from the current session</p>
-                </a>
-            </div>
-            
-            <div class="sidebar-decoration"></div>
-            
-			<p class="sidebar-copyright uppercase center-text">LetzChat &copy; Copyright 2017<br> All rights reserved</p>
-            
+        <div class="sidebar-navigation">
+            <ul class="no-bullets">
+                <li><a href="index.html">Channel 1</a></li>
+                <li><a href="index.html">Channel 2</a></li>
+                <li><a href="index.html">Channel 3</a></li>
+                <li><a href="index.html">Channel 4</a></li>
+            </ul>
         </div>
+
+        <div class="sidebar-decoration"></div>
+        <p class="sidebar-title">CHATS</p>
+        <div class="sidebar-decoration"></div>
+
+        <div class="sidebar-navigation">
+            <ul id="chats" class="no-bullets">
+                <li><a href="index.html">Chat 1</a></li>
+                <li><a href="index.html">Chat 2</a></li>
+                <li><a href="index.html">Chat 3</a></li>
+                <li><a href="index.html">Chat 4</a></li>
+            </ul>
+        </div>
+
+        <div class="sidebar-decoration"></div>
+        <p class="sidebar-title">OPTIONS</p>
+        <div class="sidebar-decoration"></div>
+
+        <div class="page-notifications information-notification">
+            <h4>Settings</h4>
+            <p>Change all your personal info</p>
+        </div>
+
+        <div class="page-notifications warning-notification" id="logout" onclick="logout()">
+            <a href="login.html">
+                <h4>Logout</h4>
+                <p>Logout from the current session</p>
+            </a>
+        </div>
+
+        <div class="sidebar-decoration"></div>
+
+        <p class="sidebar-copyright uppercase center-text">LetzChat &copy; Copyright 2017<br> All rights reserved</p>
+
     </div>
+</div>
