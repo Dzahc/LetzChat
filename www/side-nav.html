@@ -2,12 +2,15 @@
 
 <script>
     
-    var ref = firebase.database().ref("participants");
+    var participantsref = firebase.database().ref("participants");
     var userArray = [];
     var othersArray = [];
     var userref = firebase.database().ref("userId"); 
     var convref = firebase.database().ref("conversations"); 
 
+    var user = JSON.parse(localStorage.getItem("user"));
+
+    var user_id = 'zAmBzW5Y8vZJmjl1VklGR8EQGzH2';
 
     //console.log(localStorage.getItem("userId"));
 
@@ -49,9 +52,40 @@
     //
     convref.orderByChild("dateTime").on("child_added", function (snapshot) {
 
-        console.log( snapshot.key );
+        //console.log( snapshot.key );        
 
-        $("#chats").append('<li><a href="chat.html?conversation_id=' + snapshot.key + '">' + snapshot.key + ' </a></li>');
+        //
+        //  Get conversations WITH participants
+        //
+        participantsref.orderByChild("conversation_id").equalTo(snapshot.key).once("child_added", function (snapshot_participants) {
+
+            //
+            //  Loop through conversations
+            //
+            $.each(snapshot_participants.val().user_id, function (key, current_user_id ) {
+                
+                //
+                //  Display only the conversation the user is in
+                //
+                if (current_user_id == user_id) {
+
+                    //
+                    //  Add to the list of Chats
+                    //
+                    $("#chats").append('<li><a href="chat.html?conversation_id=' + snapshot.key + '">' + snapshot.key + ' </a></li>');
+
+                }
+
+            });
+
+
+        }).then(function () {
+
+
+
+        });
+
+        //$("#chats").append('<li><a href="chat.html?conversation_id=' + snapshot.key + '">' + snapshot.key + ' </a></li>');
 
     });
 </script>
@@ -60,7 +94,7 @@
 <div id="sidebar" class="page-sidebar">
     <div class="page-sidebar-scroll">
 
-        <p class="sidebar-title">Channels</p>
+        <!--p class="sidebar-title">Channels</p>
         <div class="sidebar-decoration"></div>
 
         <div class="sidebar-navigation">
@@ -70,7 +104,7 @@
                 <li><a href="index.html">Channel 3</a></li>
                 <li><a href="index.html">Channel 4</a></li>
             </ul>
-        </div>
+        </div-->
 
         <div class="sidebar-decoration"></div>
         <p class="sidebar-title">CHATS</p>
@@ -78,10 +112,10 @@
 
         <div class="sidebar-navigation">
             <ul id="chats" class="no-bullets">
-                <li><a href="index.html">Chat 1</a></li>
+                <!--li><a href="index.html">Chat 1</a></li>
                 <li><a href="index.html">Chat 2</a></li>
                 <li><a href="index.html">Chat 3</a></li>
-                <li><a href="index.html">Chat 4</a></li>
+                <li><a href="index.html">Chat 4</a></li-->
             </ul>
         </div>
 
