@@ -24,9 +24,12 @@ function onLoginSubmit() {
     var password = document.getElementById('password').value;
 
     console.log("username = " + username + "\npassword = " + password);
-    if (username === "" || password === "") {
+
+    if (username == "" || password == "") {
+
         displayError("Please enter an email and password");
         return false;
+
     }
 
     // Firebase user sign in method
@@ -43,7 +46,7 @@ function onLoginSubmit() {
         // Once the user is authenticated, grab the user variable
     firebase.auth().onAuthStateChanged(function (user) {
         // Check if the user variable is not null and that it is the current user
-        if (user && user.email === username) {
+        if (user && user.email == username) {
 
             console.log("Logged in successfully");
 
@@ -52,7 +55,7 @@ function onLoginSubmit() {
             localStorage.setItem("userId", user.uid);
 
             // Redirect to the hexagon.html page
-            window.location.href = "hexagon.html";
+            window.location.href = "chat.html";
         }
     });
 
@@ -75,7 +78,7 @@ function onSignupSubmit() {
     var password = document.getElementById('password').value;
 
     console.log("displayName = " + displayName + "\nusername = " + username + "\npassword = " + password);
-    if (displayName === "" || username === "" || password === "") {
+    if (displayName == "" || username == "" || password == "") {
         displayError("Please enter a name, email, and password");
         return false;
     }
@@ -94,7 +97,7 @@ function onSignupSubmit() {
 
     // Wait for the user to be authenticated
     firebase.auth().onAuthStateChanged(function (user) {
-        if (user && user.email === username) {
+        if (user && user.email == username) {
             console.log("Created user successfully");
             user.updateProfile({
                 displayName: displayName,
@@ -227,37 +230,51 @@ function printUser(user) {
         "\ntitle: " + user.title);
 }
 
-function startConversation(){
+function startConversation() {
+
+
+    //
+    //    Create conversation
+    //
     var convoRef = firebase.database().ref('conversations/');
     var time = (new Date()).getTime();
     var owner = localStorage.getItem("userId");
-    if (owner){
-    var key = convoRef.push({
-      dateTime: time,
-      owner_id: owner
-  })};
-  convoId=key.key
-    $( document ).ready(function() {
-                $( "#userform" ).submit(function( event ) {
-                  var users=[]
-                    $('input[name="user"]:checked').each(function() {
-                      users.push(this.value)
-                        console.log("the users are ", users);
-                    });
-                        var partRef = firebase.database().ref('participants/');
-                        var user_id = users
-                        user_id.push(localStorage.getItem("userId"));
-                        var conversation_id = convoId
-                        partRef.push({
-                            user_id: user_id,
-                            conversation_id: conversation_id
-                        });
-                });
+    var key = '';
+    if (owner) {
+        key = convoRef.push({
+            dateTime: time,
+            owner_id: owner
+        });
+    }
 
-            });
-            var redir = "chat.html?conversation_id="+convoId
-            console.log(redir);
+    convoId = key.key;
 
-            window.location.href = redir
-            return false;
+    var partRef = firebase.database().ref('participants/');
+
+    var user_id = [];
+
+    user_id.push(localStorage.getItem("userId"));
+
+    var conversation_id = convoId;
+
+    $('.users:checkbox:checked').each(function (key, value) {
+
+        if (value.value != localStorage.getItem("userId")) {
+
+            user_id.push(value.value);
+
+        }
+
+    });
+
+    partRef.push({
+        user_id: user_id,
+        conversation_id: conversation_id
+    });
+
+    var redir = "chat.html?conversation_id=" + convoId;
+
+    window.location.href = redir;
+
+    return false;
 }

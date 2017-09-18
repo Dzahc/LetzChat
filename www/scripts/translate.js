@@ -1,6 +1,6 @@
 var apiKey = "AIzaSyCeJljhj9ChaPHoDuYr5O1RzljzjP9S040";
 
-function translate(txtSource, sourceLang, classname, avatar, date, user_id) {
+function translate(txtSource, sourceLang, classname, avatar, date, user_id, msg_id) {
 
     if ((navigator.platorm) == "Win32" || "MacIntel") {
 
@@ -56,18 +56,19 @@ function translate(txtSource, sourceLang, classname, avatar, date, user_id) {
 
         }).done (function() {
 
-                message = '<li class="' + classname + '"><div class="avatar"><img src=' + avatar + ' draggable="false"/></div><div class="msg"><p>' + user_id + ' says: </p><p>' + transtext + ' </p><time>' + date + '</time></div></li>';
+                $("#msg_" + msg_id).html(transtext);
 
                 //
                 //  Add the message to the view
                 //
-                $(".chat").append(message);
+               // $(".chat").append(message);
 
-            return false;
+                return false;
+
             });
 
     } else {
-        console.log("Source and Target language are the same");
+       /* console.log("Source and Target language are the same");
         console.log("returned: " + txtSource);
 
                 message = '<li class="' + classname + '"><div class="avatar"><img src=' + avatar + ' draggable="false"/></div><div class="msg"><p>' + user_id + ' says: </p><p>' + txtSource + ' </p><time>' + date + '</time></div></li>';
@@ -75,7 +76,7 @@ function translate(txtSource, sourceLang, classname, avatar, date, user_id) {
                 //
                 //  Add the message to the view
                 //
-                $(".chat").append(message);
+                $(".chat").append(message);*/
 
         return false;
     }

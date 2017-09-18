@@ -9,8 +9,17 @@
     var msgref = firebase.database().ref("messages"); 
 
     var user = JSON.parse(localStorage.getItem("user"));
+    var user_id = localStorage.getItem("userId");
 
-    var user_id = 'zAmBzW5Y8vZJmjl1VklGR8EQGzH2';
+    if ( user_id.length < 5 ) {
+
+        // Redirect to the hexagon.html page
+        window.location.href = "chat.html";
+
+    }
+
+    console.log(user_id);
+
 
     //
     //  Load Users
@@ -59,8 +68,17 @@
                         convo_display = true;
 
                     }
+                    
 
                 });
+
+                if (convo_name.length < 3) {
+
+                    convo_name = 'No one yet';
+
+                }
+
+                //convo_display = true;
 
                 if (convo_display) {
 
@@ -98,6 +116,7 @@
         msgref.orderByChild("conversation_id").equalTo(convoid).on("child_added", function (msg_snap) {        
            
             current_user_id = msg_snap.val().user_id;
+            
 
             //
             //  Build the name of the convo
@@ -135,11 +154,27 @@
             //
             //$(".chat").append(message);
 
-            translate(msg_snap.val().text, msg_snap.val().language, classname, avatar, msg_snap.val().dateTime, username);
+            //
+            //  Put the place holder for the message
+            //
+            var timeMsg = msg_snap.val().dateTime;
+
+            var d = new Date(timeMsg);
+
+            d.toLocaleString();
+
+
+            $(".chat").append('<li class="' + classname + '"><div class="avatar"><img src=' + avatar + ' draggable="false"/></div><div class="msg"><p>' + username + ' says: </p><p  id="msg_' + msg_snap.key + '" >' + msg_snap.val().text + ' </p><time>' + d.toLocaleString() + '</time></div></li></li>');
+
+           // translate(msg_snap.val().text, msg_snap.val().language, classname, avatar, msg_snap.val().dateTime, username, msg_snap.key);
 
         });
 
-       
+
+        //
+        //  Auto-scroll to the bottom
+        //
+        window.scrollTo(0, document.body.scrollHeight);
         //
         //   SELECT messages from DB
         //
@@ -283,9 +318,9 @@
         <p class="sidebar-title">OPTIONS</p>
         <div class="sidebar-decoration"></div>
 
-        <div class="page-notifications information-notification">
-            <h4>Settings</h4>
-            <p>Change all your personal info</p>
+        <div class="page-notifications confirmation-notification">
+            <h4>New Conversation</h4>
+            <p>Start a New Conversation</p>
         </div>
 
         <div class="page-notifications warning-notification" id="logout" onclick="logout()">
