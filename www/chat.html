@@ -46,18 +46,13 @@
         }
     </script>
 
-    <script>
-   //get paramter from URL
-        var query = window.location.search.substring(1);
-        //console.log(query)
-        var paramurl = query.split("=");
-        var convoid = paramurl[1];
-        //console.log(convoid);
-    </script>
+    
 
 
     <script type="text/javascript">
-
+        var current_page = window.location.href;
+        var url = new URL(current_page);
+        var convoid = url.searchParams.get("conversation_id");
         var user_id = localStorage.getItem("userId");
         var conversation_id = convoid;
         var dateTime = new Date().toString();
@@ -70,6 +65,11 @@
 
             //console.log("function called");
             text = document.getElementById('message').value;
+
+            //
+            //  Empty the TExt box
+            //
+            document.getElementById('message').value = "";
 
             //console.log("testing code ", localStorage.getItem("device_language"));
             //console.log("the time is " + dateTime);
@@ -126,11 +126,7 @@
         var userref = firebase.database().ref("userId");
 
 
-        var current_page = window.location.href;
-        var url = new URL(current_page);
-        var convoid = url.searchParams.get("conversation_id");
-
-        console.log(convoid);
+       
 
         //var convoid = '-KtcBq1dQD5-tXHQjV_S';
 
@@ -251,14 +247,15 @@
 
                 }).then(function () {
 
+                    //
+                    //  Auto-scroll to the bottom
+                    //
                     window.scrollTo(0, document.body.scrollHeight);
 
                 });
         });
 
-        //
-        //  Auto-scroll to the bottom
-        //
+       
         
     //    for (var i = 0; i < messageArray.length; i++) {
         //    if(userid == localStorage.getItem("userId")){
