@@ -50,18 +50,34 @@
 
 
     <script type="text/javascript">
-        var current_page = window.location.href;
+      /*  var current_page = window.location.href;
         var url = new URL(current_page);
         var convoid = url.searchParams.get("conversation_id");
         var user_id = localStorage.getItem("userId");
-        var conversation_id = convoid;
-        var dateTime = new Date().toString();
+        var conversation_id = convoid;*/
+        var messageRef = firebase.database().ref('messages/');
+
+        //
+        //  A lot easier to compare milliseconds from UNIX Time
+        //  NOTE: use Date.parse() to display something humanly readable
+        //
+        //var dateTime = Date.now();
+        
         var language = localStorage.getItem("device_language");
+
+        if ((navigator.platorm) == "Win32" || "MacIntel") {
+
+            language = navigator.language;
+
+        }
+
         var text = "";
         var $ = jQuery.noConflict();
         var messageForm = document.getElementById('messageForm');
 
         function onMessageSubmitted() {
+
+            var dateTime = Date.now();
 
             //console.log("function called");
             text = document.getElementById('message').value;
@@ -76,11 +92,16 @@
             //console.log("the language is " + language);
             //console.log("the message is " + text);
 
-            var messageRef = firebase.database().ref('messages/');
-
+           
+            //
+            //  Sanitize inputs
+            //
             if (language === null) {
+
                 language = "";
+
             }
+
             if (!conversation_id) {
                 conversation_id = "";
             }
@@ -93,8 +114,6 @@
             if (!user_id) {
                 user_id = "";
             }
-
-
 
             messageRef.push({
                 conversation_id: conversation_id,
@@ -111,7 +130,7 @@
 
     <script>
 
-
+/*
         //pull conversation
         var $ = jQuery.noConflict();
 
@@ -124,9 +143,6 @@
         var userimage;
         var count = 0;
         var userref = firebase.database().ref("userId");
-
-
-       
 
         //var convoid = '-KtcBq1dQD5-tXHQjV_S';
 
@@ -141,6 +157,7 @@
        ref.orderByChild("conversation_id").equalTo(convoid).on("child_added", function (snapshot) {
 
             userref.orderByKey().equalTo(snapshot.val().user_id).once("child_added", function (snapshots) {
+
                 count++;
                 username = snapshots.val().displayName
                 userimage = snapshots.val().photo_id
@@ -255,7 +272,7 @@
                 });
         });
 
-       
+       */
         
     //    for (var i = 0; i < messageArray.length; i++) {
         //    if(userid == localStorage.getItem("userId")){
@@ -429,6 +446,7 @@
     </div>
 
     <script type="text/javascript" src="cordova.js"></script>
+   
     <script type="text/javascript" src="scripts/platformOverrides.js"></script>
     <script type="text/javascript" src="scripts/hexagon.js"></script>
 

@@ -62,7 +62,9 @@ function swapStyleSheet(sheet){
                 //
                 //  Redirect
                 //
-                window.location.href = "profile-edit.html";
+                //window.location.href = "profile-edit.html";
+
+                window.location.href = "chat.html";
 
             } else {
 
@@ -124,22 +126,22 @@ function swapStyleSheet(sheet){
 				<form onsubmit="return onLoginSubmit()" method="post">
 				    
                     <p class="center-text">
-                        <span class="form_field">Email : </span> 
-                        <input type="text" id="username" name="username" style="border:1px solid #000;display: inline">
+                        <span class="form_field" style="font-size: 2em">Email</span> 
+                        <input type="text" id="username" name="username" style="border:1px solid #000; width:300px; height:40px; font-size:20px; margin: 0 auto;">
                     </p> 
 				   
                     <p class="center-text">
-                        <span class="form_field">Password : </span>
-                        <input type="password" id="password" name="password"  style="border:1px solid #000;display: inline">
+                        <span class="form_field" style="font-size: 2em">Password</span>
+                        <input type="password" id="password" name="password"  style="border:1px solid #000; width:300px; height:40px; font-size:20px; margin: 0 auto;">
                     </p>
 
 				    <p class="center-text"><span class="form_field"></span>
-                        <input type="submit" value="Login"  style="width:127px; border:1px solid #000;display: inline; padding:3px 30px; background-color:#34495E; color:#FFF">
+                        <input type="submit" value="Login"  style="font-size:20px; width:300px; border:1px solid #000;display: inline; padding:3px 30px; background-color:#34495E; color:#FFF; height:40px;margin:20px auto;">
                     </p> 
 				</form>
                 <!-- End Form to login -->
 
-				<p class="center-text">Don't have an account yet? Please <a href="signup.html" class="blue">register</a>
+				<p class="center-text" style="font-size:16px;">Don't have an account yet? Please <a href="signup.html" class="blue">register</a></p>
 
 			</div>
 

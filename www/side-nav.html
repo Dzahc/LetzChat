@@ -1,3 +1,4 @@
+ <script type="text/javascript" src="scripts/translate.js"></script>
 <script>
     
     var participantsref = firebase.database().ref("participants");
@@ -5,6 +6,7 @@
     var othersArray = [];
     var userref = firebase.database().ref("userId"); 
     var convref = firebase.database().ref("conversations"); 
+    var msgref = firebase.database().ref("messages"); 
 
     var user = JSON.parse(localStorage.getItem("user"));
 
@@ -69,6 +71,8 @@
 
                     $("#chats").append('<li><a style="color:#fff; font-size: 18px; line-height: 25px;" href="#" onclick="javascript:LoadConvo(\'' + snapshot.key + '\')">' + convo_name + ' </a></li>');
 
+                    
+
                 }
 
             }).then(function () {
@@ -79,18 +83,69 @@
 
         });
 
-    });
+        });
 
-    function LoadConvo(convoid ) {
+
+
+    function LoadConvo( convoid ) {
+
+        conversation_id = convoid;
+
+        console.log(conversation_id);
+
+        $("#chat_window").html("");        
         
-        $("#chat_window").html("");
+        msgref.orderByChild("conversation_id").equalTo(convoid).on("child_added", function (msg_snap) {        
+           
+            current_user_id = msg_snap.val().user_id;
 
+            //
+            //  Build the name of the convo
+            //
+            if (typeof (userArray[current_user_id]) !== "undefined") {
+
+                username = userArray[current_user_id].displayName + ' ';
+
+            } else {
+
+                username = '[ANONYMOUS] ';
+            }
+
+            if (msg_snap.val().user_id == user_id) {
+
+                classname = 'self';
+                avatar = 'images/uni.jpg';
+
+            } else {
+
+                classname = 'other';
+                avatar = 'images/tri.jpg';
+
+            };
+
+           
+
+            //
+            //  Prepare the message
+            //
+            //message = '<li class="' + classname + '"><div class="avatar"><img src=' + avatar + ' draggable="false"/></div><div class="msg"><p>' + username + ' says: </p><p>' + msg_snap.val().text + ' </p><time>' + msg_snap.val().dateTime + '</time></div></li>';
+
+            //
+            //  Add the message to the view
+            //
+            //$(".chat").append(message);
+
+            translate(msg_snap.val().text, msg_snap.val().language, classname, avatar, msg_snap.val().dateTime, username);
+
+        });
+
+       
         //
         //   SELECT messages from DB
         //
-        ref.orderByChild("conversation_id").equalTo(convoid).on("child_added", function (snapshot) {
+        /*ref.orderByChild("conversation_id").equalTo(convoid).on("child_added", function (snapshot) {
 
-            userref.orderByKey().equalTo(snapshot.val().user_id).once("child_added", function (snapshots) {
+            msgref.orderByKey().equalTo(snapshot.val().user_id).once("child_added", function (snapshots) {
 
                 count++;
                 username = snapshots.val().displayName;
@@ -203,7 +258,7 @@
                 window.scrollTo(0, document.body.scrollHeight);
 
             });
-        });
+        });*/
 
     }
 

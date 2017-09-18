@@ -107,7 +107,9 @@ function onSignupSubmit() {
                 user.sendEmailVerification();
                 console.log("Sent Email verification");
 
-                window.location.href = "login.html";
+                setTimeout(function(){
+                    window.location.href = "login.html";
+                }, 500);
             });
         }
     });
@@ -251,7 +253,11 @@ function startConversation(){
                             conversation_id: conversation_id
                         });
                 });
-            });
 
-  return false;
+            });
+            var redir = "chat.html?conversation_id="+convoId
+            console.log(redir);
+
+            window.location.href = redir
+            return false;
 }
