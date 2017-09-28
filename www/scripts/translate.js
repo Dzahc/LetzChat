@@ -2,28 +2,26 @@ var apiKey = "AIzaSyCeJljhj9ChaPHoDuYr5O1RzljzjP9S040";
 
 function translate(txtSource, sourceLang, classname, avatar, date, user_id, msg_id) {
 
-    var deviceLanguage = '';    
+    if ((navigator.platorm) == "Win32" || "MacIntel") {
 
-    if ((navigator.platorm) === "Win32" || "MacIntel") {
-
-        deviceLanguage = navigator.language
+        var deviceLanguage = navigator.language
        
     }
 
     else { 
 
-        deviceLanguage = localStorage.getItem("device_language");
+        var deviceLanguage = localStorage.getItem("device_language");
     }
 
-    if (deviceLanguage === null) {
+    if (deviceLanguage == null) {
 
-        deviceLanguage = "en";
+        var deviceLanguage = "en";
 
     }  
 
-    if (sourceLang === null || sourceLang === "") {
+    if (sourceLang == null || sourceLang == "") {
 
-        sourceLang = "en";
+        var sourceLang = "en";
 
     }  
 
@@ -39,7 +37,7 @@ function translate(txtSource, sourceLang, classname, avatar, date, user_id, msg_
     console.log("sourceLang = " + sourceLang);
     console.log("deviceLang = " + deviceLanguage);
 
-    if (deviceLanguage !== sourceLang) {
+    if (deviceLanguage != sourceLang) {
         var transtext="";
         // console.log("Attempting to translate \'" + txtSource + "\'");
 

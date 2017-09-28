@@ -25,7 +25,7 @@ function onLoginSubmit() {
 
     console.log("username = " + username + "\npassword = " + password);
 
-    if (username === "" || password === "") {
+    if (username == "" || password == "") {
 
         displayError("Please enter an email and password");
         return false;
@@ -46,7 +46,7 @@ function onLoginSubmit() {
         // Once the user is authenticated, grab the user variable
     firebase.auth().onAuthStateChanged(function (user) {
         // Check if the user variable is not null and that it is the current user
-        if (user && user.email === username) {
+        if (user && user.email == username) {
 
             console.log("Logged in successfully");
 
@@ -77,16 +77,9 @@ function onSignupSubmit() {
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
 
-    //
-    //  Deactivate the submit button
-    //
-    //$("#submit_button").prop("disabled", true);
-
-    console.log(" displayName = " + displayName + " username = " + username + " password = " + password);
-
-    if (displayName === "" || username === "" || password === "") {
+    console.log("displayName = " + displayName + "\nusername = " + username + "\npassword = " + password);
+    if (displayName == "" || username == "" || password == "") {
         displayError("Please enter a name, email, and password");
-       // $("#submit_button").prop("disabled", false);
         return false;
     }
 
@@ -99,16 +92,15 @@ function onSignupSubmit() {
             // TODO: put the errorCode/Message in a div on the page
             console.log(errorCode + ": " + errorMessage);
             displayError(errorMessage);
-           // $("#submit_button").prop("disabled", false);
         }
     });
 
     // Wait for the user to be authenticated
     firebase.auth().onAuthStateChanged(function (user) {
-        if (user && user.email === username) {
+        if (user && user.email == username) {
             console.log("Created user successfully");
             user.updateProfile({
-                displayName: displayName
+                displayName: displayName,
             }).then(function() {
                 console.log("Updated user profile");
 
@@ -196,7 +188,6 @@ function writeUserData(user) {
 
     // Grab a reference to the database at the specific user path
     var userRef = firebase.database().ref('userId/' + user.uid);
-
     console.log("userRef = " + userRef.toString());
 
     // The firebase method to set the data in the database
@@ -231,12 +222,12 @@ function logout() {
  */
 function printUser(user) {
     console.log("userId: " + user.uid +
-        " email: " + user.email +
-        " displayName: " + user.displayName +
-        " location: " + user.location +
-        " photo_id: " + user.photo_id +
-        " prefix: " + user.prefix +
-        " title: " + user.title);
+        "\nemail: " + user.email +
+        "\ndisplayName: " + user.displayName +
+        "\nlocation: " + user.location +
+        "\nphoto_id: " + user.photo_id +
+        "\nprefix: " + user.prefix +
+        "\ntitle: " + user.title);
 }
 
 function startConversation() {
@@ -268,7 +259,7 @@ function startConversation() {
 
     $('.users:checkbox:checked').each(function (key, value) {
 
-        if (value.value !== localStorage.getItem("userId")) {
+        if (value.value != localStorage.getItem("userId")) {
 
             user_id.push(value.value);
 

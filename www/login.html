@@ -54,24 +54,6 @@ function swapStyleSheet(sheet){
             //
             var user = JSON.parse(localStorage.getItem("user"));
 
-            navigator.globalization.getPreferredLanguage(
-
-                function (language) {
-                    //
-                    //  Save the language
-                    //
-                    localStorage.setItem("device_language", language.value);
-                },
-                function () {
-                    //
-                    //  No language found then display the original message 
-                    //  without translating
-                    //
-                    //alert('Error getting language\n');
-                }
-
-            );
-
             //
             //  If the user is logged in then redirect to add a chat
             //

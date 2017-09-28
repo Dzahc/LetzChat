@@ -37,7 +37,13 @@
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-storage.js"></script>
-    <!--script type="text/javascript" src="scripts/firebaseUtils.js"></script--->
+    <script type="text/javascript" src="scripts/firebaseUtils.js"></script>
+
+    <script type="text/javascript">
+        function swapStyleSheet(sheet) {
+            document.getElementById('pagestyle').setAttribute('href', sheet);
+        }
+    </script>
 
 </head>
 <body>
@@ -85,8 +91,8 @@
                     <form onsubmit="return onSignupSubmit()" method="post">
                         <p class="center-text"><span class="form_field"  style="font-size: 2em; width:300px;">Full Name <span style="color:#F00; font-weight:bold;">*</span> : </span> <input type="text" id="fullName" name="fullName"  style="border:1px solid #000; width:300px; height:40px; font-size:20px; margin: 0 auto;"></p>
                         <p class="center-text"><span class="form_field"  style="font-size: 2em; width:300px;">Email <span style="color:#F00; font-weight:bold;">*</span> : </span> <input type="text" id="username" name="username"  style="border:1px solid #000; width:300px; height:40px; font-size:20px; margin: 0 auto;"></p>
-                        <p class="center-text"><span class="form_field"  style="font-size: 2em; width:300px;">Password <span style="color:#F00; font-weight:bold;">*</span> : </span> <input type="password" id="password" name="password"  style="border:1px solid #000; width:300px; height:40px; font-size:20px; margin: 0 auto;"></p>
-                        <p class="center-text"><span class="form_field"></span><input type="submit" id="submit_button" value="Register" style="font-size:20px; width:300px; border:1px solid #000;display: inline; padding:3px 30px; background-color:#34495E; color:#FFF; height:40px;margin:20px auto;"></p>
+                        <p class="center-text"><span class="form_field"  style="font-size: 2em; width:300px;">Password <span style="color:#F00; font-weight:bold;">*</span> : </span> <input type="password" id="password" name="password"  style="border:1px solid #000; width:300px; height:40px; font-size:20px; margin: 0 auto;""></p>
+                        <p class="center-text"><span class="form_field"></span><input type="submit" value="Register" style="font-size:20px; width:300px; border:1px solid #000;display: inline; padding:3px 30px; background-color:#34495E; color:#FFF; height:40px;margin:20px auto;"></p>
                     </form>
                    
                     <p class="center-text" style="font-size:16px;">Already have an account? Please <a href="login.html" class="blue">login</a>
@@ -106,186 +112,7 @@
 
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="scripts/platformOverrides.js"></script>
-  
-
-    <script>
-
-            // Initialize Firebase with our configuration
-            var config = {
-                apiKey: "AIzaSyBjF93oNeV9xMebcstkjtr-rV2WoRy6eh0",
-                authDomain: "letzchatenterprise.firebaseapp.com",
-                databaseURL: "https://letzchatenterprise.firebaseio.com",
-                projectId: "letzchatenterprise",
-                storageBucket: "letzchatenterprise.appspot.com",
-                messagingSenderId: "138258019105"
-            };
-            firebase.initializeApp(config);
-
-            /**
-              * Debug method to verify data variables
-              * @param {any} user The current user
-              */
-            function printUser(user) {
-                console.log("userId: " + user.uid +
-                    " email: " + user.email +
-                    " displayName: " + user.displayName +
-                    " location: " + user.location +
-                    " photo_id: " + user.photo_id +
-                    " prefix: " + user.prefix +
-                    " title: " + user.title);
-            }
-
-            /**
-             * This method handles adding/updating the data for the given user into the firebase database.
-             * @param {any} user The user variable with the desired profile settings already set on it.
-             */
-            function writeUserData(user) {
-                // Default any undefined data elements to  ""
-                if (!user.email) {
-                    user.email = "";
-                }
-                if (!user.displayName) {
-                    user.displayName = "";
-                }
-                if (!user.location) {
-                    user.location = "";
-                }
-                if (!user.photo_id) {
-                    user.photo_id = "";
-                }
-                if (!user.prefix) {
-                    user.prefix = "";
-                }
-                if (!user.title) {
-                    user.title = "";
-                }
-                printUser(user);
-
-                // Grab a reference to the database at the specific user path
-                var userRef = firebase.database().ref('userId/' + user.uid);
-
-                console.log("userRef = " + userRef.toString());
-
-                // The firebase method to set the data in the database
-                userRef.set({
-                    email: user.email,
-                    displayName: user.displayName,
-                    location: user.location,
-                    photo_id: user.photo_id,
-                    prefix: user.prefix,
-                    title: user.title
-                });
-
-                console.log("END CHECK IF USER IS CREATED");
-                //window.location.href = "login.html";
-            }
-
-            function displayError(error) {
-                var errorDiv = document.getElementById('errors');
-                errorDiv.style.visibility = 'visible';
-                errorDiv.innerHTML = error;
-            }
-
-            function logout() {
-                console.log("Logging user out");
-                firebase.auth().signOut();
-                localStorage.setItem("user", null);
-                localStorage.setItem("userId", null);
-
-                window.location.href = "login.html";
-            }
-
-            /**
-             * This method handles the signup functionality. It grabs the username and password
-             * that the user entered and registers a new user with firebase. An authentication email
-             * is sent to the user's email. The name that was entered is then updated in the database
-             * via the writeUserData() method.
-             */
-            function onSignupSubmit() {
-
-
-
-                console.log("from signup.html");
-                //firebase.auth().signOut();
-
-                var displayName = document.getElementById('fullName').value;
-                var username = document.getElementById('username').value;
-                var password = document.getElementById('password').value;
-
-                document.getElementById('fullName').value='';
-                document.getElementById('username').value='';
-                document.getElementById('password').value = '';
-
-                //
-                //  To lower case and GFY
-                //
-                displayName = displayName.toLowerCase();
-                username = username.toLowerCase();
-              
-
-                console.log("clear fields");
-
-                if (displayName === "" || username === "" || password === "") {
-                    displayError("Please enter a name, email, and password");
-                    // $("#submit_button").prop("disabled", false);
-                    return false;
-                }
-
-                console.log("After Fields Checks");
-
-                // The firebase method to register a new user
-                firebase.auth().createUserWithEmailAndPassword(username, password).catch(function (error) {
-
-                    console.log("Attempt create user");
-
-                    // Handle Errors here.
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    if (errorCode !== null) {
-                        // TODO: put the errorCode/Message in a div on the page
-                        console.log(errorCode + ": " + errorMessage);
-                        displayError(errorMessage);
-                        // $("#submit_button").prop("disabled", false);
-                    }
-
-                    console.log("No Error While auth created");
-                });
-
-                // Wait for the user to be authenticated
-                firebase.auth().onAuthStateChanged(function (user) {
-
-                    console.log("In Change State");
-                    console.log("user email: *" + user.email + "*");
-                    console.log("username: *" + username + "*");
-                    if (user && user.email === username) {
-
-                        console.log("Created user successfully");
-
-                        user.updateProfile({
-                            displayName: displayName,
-                        }).then(function () {
-
-                            console.log("Updated user profile");
-
-                            console.log("Adding user to the database");
-
-                            writeUserData(user);
-
-                            // Send the email verification
-                            user.sendEmailVerification();
-
-                            console.log("Sent Email verification");
-                            setTimeout(function () {
-                                window.location.href = "login.html";
-                            }, 2500);
-                        });
-                    }
-                });
-
-                return false;
-            }
-
-    </script>
+    <script type="text/javascript" src="scripts/signup.js"></script>
 
 </body>
 </html>
