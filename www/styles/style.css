@@ -439,6 +439,15 @@ body {
     margin:auto;
 }
 
+@font-face {
+    font-family: Noto;
+    src: url(NotoSans-Regular.ttf);
+}
+
+#chat_window {
+    font-family:Noto;
+}
+
 
 
 

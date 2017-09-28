@@ -1,0 +1,27 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "html5template"
+        },
+        "cordova-plugin-globalization": {
+            "PACKAGE_NAME": "html5template"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "html5template"
+        },
+        "cordova-custom-config": {
+            "PACKAGE_NAME": "html5template"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "html5template"
+        }
+    },
+    "dependent_plugins": {}
+}

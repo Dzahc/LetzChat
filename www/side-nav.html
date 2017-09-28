@@ -38,7 +38,7 @@
             //
             //  Get conversations WITH participants
             //
-            participantsref.orderByChild("conversation_id").equalTo(snapshot.key).once("child_added", function (snapshot_participants) {
+            participantsref.orderByChild("conversation_id").equalTo(snapshot.key).on("child_added", function (snapshot_participants) {
 
                 var convo_display = false;
                 var convo_name = '';
@@ -92,10 +92,6 @@
                     
 
                 }
-
-            }).then(function () {
-
-
 
             });            
 
@@ -166,7 +162,9 @@
 
             $(".chat").append('<li class="' + classname + '"><div class="avatar"><img src=' + avatar + ' draggable="false"/></div><div class="msg"><p>' + username + ' says: </p><p  id="msg_' + msg_snap.key + '" >' + msg_snap.val().text + ' </p><time>' + d.toLocaleString() + '</time></div></li></li>');
 
-           // translate(msg_snap.val().text, msg_snap.val().language, classname, avatar, msg_snap.val().dateTime, username, msg_snap.key);
+            translate(msg_snap.val().text, msg_snap.val().language, classname, avatar, msg_snap.val().dateTime, username, msg_snap.key);
+
+
 
         });
 
