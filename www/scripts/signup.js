@@ -4,6 +4,20 @@
 // and then run "window.location.reload()" in the JavaScript Console.
 (function () {
     "use strict";
+
+    // Initialize Firebase with our configuration
+    var config = {
+        apiKey: "AIzaSyBjF93oNeV9xMebcstkjtr-rV2WoRy6eh0",
+        authDomain: "letzchatenterprise.firebaseapp.com",
+        databaseURL: "https://letzchatenterprise.firebaseio.com",
+        projectId: "letzchatenterprise",
+        storageBucket: "letzchatenterprise.appspot.com",
+        messagingSenderId: "138258019105"
+    };
+    firebase.initializeApp(config);
+
+
+
 	$('div[data-include]').each(function() {
 		$(this).load( $(this).attr('data-include') + '.html').trigger('create');
 	});
